@@ -1,0 +1,127 @@
+{
+  "char": "脸",
+  "pinyin": "liǎn",
+  "stroke_count": 11,
+  "character_type": "形声字",
+  "radical": "月（肉）",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 120,
+  "core_origin": "从月（肉）佥声，指面部。",
+  "original_meaning": "面颊，后来泛指整个面部。",
+  "meaning_shift_summary": "从指面颊到指整个面部。",
+  "child_story": "很久以前，人们用“面”表示整张脸，后来专门造了“脸”来强调脸颊部分。就像我们常说的“脸蛋儿”就是指脸颊。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边的“月”表示肉，右边的“佥”表示声音。"
+    },
+    {
+      "stage": "楷书",
+      "era": "现代",
+      "description": "左边是“月”字旁，右边是“佥”，写得工整。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "本义",
+      "nodes": [
+        "脸颊"
+      ]
+    },
+    {
+      "label": "扩展",
+      "nodes": [
+        "整个面部",
+        "面子",
+        "面部表情"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "脸蛋",
+        "gloss": "脸颊部分，通常指小孩的脸。"
+      },
+      {
+        "word": "笑脸",
+        "gloss": "带着笑容的脸。"
+      },
+      {
+        "word": "洗脸",
+        "gloss": "用水清洗面部。"
+      }
+    ],
+    "radical_family": {
+      "radical": "月（肉）",
+      "meaning_hint": "与身体部位有关",
+      "examples": [
+        "腿",
+        "胳膊",
+        "肚子"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "佥",
+      "sound_hint": "读作qiān，但“脸”声调不同。",
+      "examples": [
+        "俭",
+        "检",
+        "签"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "面",
+        "relation": "同义字",
+        "note": "古代用“面”表示脸，“脸”是后起字。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "验",
+        "difference": "左边是“马”，右边也是“佥”，意思是检查。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "脸",
+    "words": [
+      "脸蛋",
+      "笑脸",
+      "洗面奶"
+    ],
+    "sentences": [
+      "妹妹的脸蛋红扑扑的。",
+      "老师面带笑脸走进教室。",
+      "早上要记得洗洗脸。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "脸",
+    "word": "笑脸",
+    "sentence": "小朋友们的笑脸像花儿一样。",
+    "free_speak_prompt": "说说你见过的笑脸或者生气的脸。"
+  },
+  "interaction_prompts": [
+    "比一比：和爸爸妈妈一起做不同的表情，说说脸的变化。",
+    "猜一猜：摸一摸自己的脸，说说脸上有什么部位？",
+    "画一画：画一张笑脸和一张哭脸，给家人看。"
+  ],
+  "parent_script": [
+    "1. 指着孩子的脸说：“这是脸，左边是月字旁，右边是佥。”",
+    "2. 问孩子：“你喜欢什么表情的脸？”一起做表情。",
+    "3. 和孩子一起念儿歌：‘小脸蛋，圆又圆，笑一笑，真好看。’",
+    "4. 让孩子在纸上写几个“脸”字，注意左边是月，右边是佥。"
+  ],
+  "citations": [
+    {
+      "type": "辞书",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "（“脸”未见，参考“面”）"
+    }
+  ]
+}

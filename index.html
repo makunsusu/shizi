@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>字源识字卡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div>
+        <p class="eyebrow">字源识字卡</p>
+        <h1>选一个字，读一张卡</h1>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title-row">
+          <label for="characterSearch">已有字卡</label>
+          <button id="openAddDialogButton" class="small-button" type="button">新增</button>
+        </div>
+        <input id="characterSearch" placeholder="搜索汉字、拼音或文件名">
+        <div id="characterList" class="character-list" aria-label="已有字卡列表"></div>
+        <p id="loadStatus" class="hint">正在读取字表。</p>
+      </div>
+    </aside>
+
+    <main class="card-page" id="cardPage">
+      <section class="empty-state">
+        <h2>正在准备字卡</h2>
+        <p>如果长时间没有出现内容，请确认正在通过本地服务器打开页面。</p>
+      </section>
+    </main>
+  </div>
+
+  <div id="confirmDialog" class="dialog-backdrop" hidden>
+    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h2 id="confirmTitle">确认新增</h2>
+      <div id="addInputGroup" class="dialog-field">
+        <label for="newCharInput">新增字卡</label>
+        <input id="newCharInput" maxlength="1" placeholder="输入一个汉字">
+      </div>
+      <p id="confirmMessage"></p>
+      <div class="dialog-actions">
+        <button id="cancelGenerateButton" class="secondary" type="button">取消</button>
+        <button id="confirmGenerateButton" type="button">确认</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="loadingOverlay" class="loading-overlay" hidden>
+    <div class="loading-box">
+      <div class="loading-mark">AI</div>
+      <h2>AI 生成中，请稍后</h2>
+      <p>正在整理字源、字族、词句和亲子互动。</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

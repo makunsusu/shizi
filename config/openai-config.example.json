@@ -1,0 +1,8 @@
+{
+  "baseUrl": "https://api.moonshot.ai/v1",
+  "apiKey": "",
+  "model": "kimi-k2.6",
+  "temperature": 0.4,
+  "ageBand": "6-8",
+  "apiMode": "chat_completions"
+}

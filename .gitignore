@@ -1,0 +1,4 @@
+.claude
+.codex
+config/openai-config.json
+tts-config.json

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-29",
+  "items": [
+    {
+      "char": "吃",
+      "pinyin": "chī",
+      "file": "吃_v5.json",
+      "frequency_rank": 120
+    },
+    {
+      "char": "脸",
+      "pinyin": "liǎn",
+      "file": "脸_v5.json",
+      "frequency_rank": 120
+    },
+    {
+      "char": "红",
+      "pinyin": "hóng",
+      "file": "hong_v5.json",
+      "frequency_rank": 502
+    },
+    {
+      "char": "绿",
+      "pinyin": "lǜ",
+      "file": "lv_v5.json",
+      "frequency_rank": 1088
+    },
+    {
+      "char": "故",
+      "pinyin": "gù",
+      "file": "故_v5.json",
+      "frequency_rank": 0
+    },
+    {
+      "char": "填",
+      "pinyin": "tián",
+      "file": "填_v5.json",
+      "frequency_rank": 0
+    }
+  ]
+}

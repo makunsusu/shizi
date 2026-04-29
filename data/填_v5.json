@@ -1,0 +1,131 @@
+{
+  "char": "填",
+  "pinyin": "tián",
+  "stroke_count": 13,
+  "character_type": "形声字",
+  "radical": "土",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 0,
+  "core_origin": "从土，真声，本义为填塞、填充。",
+  "original_meaning": "填塞，把凹陷的地方垫平或塞满。",
+  "meaning_shift_summary": "由填塞引申为填补空缺、填写内容。",
+  "child_story": "古人造“填”字，左边是“土”，右边是“真”。你可以想象地上有一个坑，需要用土把它填满，直到地面变得真正平整。所以“填”就是把空缺的地方用东西塞满或铺平。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦代",
+      "description": "字形从土、真声，左土右真，结构稳定。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "填塞→填补→填写",
+      "nodes": [
+        "用土填坑",
+        "填补空缺",
+        "填写表格"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "填空",
+        "gloss": "填补空位或空白处"
+      },
+      {
+        "word": "填写",
+        "gloss": "在空白处写上内容"
+      },
+      {
+        "word": "填补",
+        "gloss": "补足缺漏或空缺"
+      },
+      {
+        "word": "填充",
+        "gloss": "用东西填满空间"
+      }
+    ],
+    "radical_family": {
+      "radical": "土",
+      "meaning_hint": "表示与土、土地有关",
+      "examples": [
+        "地",
+        "坑",
+        "坝",
+        "城"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "真",
+      "sound_hint": "提示读音，但“真”读zhēn，“填”读tián，韵母相近",
+      "examples": [
+        "镇",
+        "慎",
+        "颠"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "镇",
+        "relation": "声旁相同（真）",
+        "note": "镇压、安定，与填的填塞义无关，但字形相近"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "慎",
+        "difference": "右边同为“真”，但左边是“忄”（竖心旁），表示小心谨慎"
+      },
+      {
+        "char": "颠",
+        "difference": "右边同为“真”，但左边是“页”，表示头顶或颠倒"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "填",
+    "words": [
+      "填空",
+      "填写",
+      "填饱"
+    ],
+    "sentences": [
+      "请填写这张表格。",
+      "这个坑需要填平。",
+      "我填饱了肚子。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "填",
+    "word": "填写",
+    "sentence": "老师让我们填写名字。",
+    "free_speak_prompt": "如果地上有一个坑，你会用什么把它填平？"
+  },
+  "interaction_prompts": [
+    "和爸妈一起找找家里有哪些东西可以“填”满？比如填满杯子、填满箱子。",
+    "用手比划“填”字的写法：先写左边的“土”，再写右边的“真”。",
+    "造句比赛：用“填”说一句话，看谁说得更有趣。"
+  ],
+  "parent_script": [
+    "告诉孩子“填”字左边是“土”，表示用土填塞，右边是“真”表示读音。",
+    "一起读一遍本卡上的字、词、句，注意发音准确。",
+    "让孩子用手指在空中写“填”字，边说边写。",
+    "在生活中找“填”的场景，比如填表格、填坑、填饱肚子。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "《说文解字》",
+      "author": "许慎",
+      "note": "填，塞也。从土，真声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "《汉字树》",
+      "author": "廖文豪",
+      "note": "通过字源和字族帮助儿童理解汉字。"
+    }
+  ]
+}

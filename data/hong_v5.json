@@ -1,0 +1,116 @@
+{
+  "char": "红",
+  "pinyin": "hóng",
+  "stroke_count": 6,
+  "character_type": "形声",
+  "radical": "纟",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 502,
+  "core_origin": "红从糸，工声，原来多指带红色的丝帛。",
+  "original_meaning": "带红色的丝织品或红色。",
+  "meaning_shift_summary": "从染红的丝帛，慢慢扩展到红花、红灯、红旗、脸红等生活里的红色。",
+  "child_story": "很早以前，人们把白白的丝线拿去染色，染出像花瓣、晚霞一样的颜色。这个字左边的纟，提醒我们它和丝线、布帛有关；右边的工，帮忙提示读音。后来，红不只说丝布，也说红花、红灯、红旗，还可以说人害羞时脸红了。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是丝线的形旁，右边是提示读音的工。"
+    },
+    {
+      "stage": "楷书",
+      "era": "今",
+      "description": "繁体写作紅，简化后左边变成纟，结构更简明。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "颜色旅行",
+      "nodes": ["染红的丝布", "红色的东西", "红花红灯", "脸红和红火"]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "红花",
+        "gloss": "红色的花"
+      },
+      {
+        "word": "红灯",
+        "gloss": "交通灯里表示停下的灯"
+      },
+      {
+        "word": "红旗",
+        "gloss": "红色的旗子"
+      },
+      {
+        "word": "脸红",
+        "gloss": "害羞或热的时候脸变红"
+      }
+    ],
+    "radical_family": {
+      "radical": "纟",
+      "meaning_hint": "多和丝线、织物、颜色、缠绕有关。",
+      "examples": ["纸", "线", "给", "绿"]
+    },
+    "phonetic_family": {
+      "phonetic_component": "工",
+      "sound_hint": "工在一些字里提示相近读音，但今天读音不一定完全一样。",
+      "examples": ["虹", "江", "缸", "扛"]
+    },
+    "etymology_relations": [
+      {
+        "char": "虹",
+        "relation": "同声旁",
+        "note": "虹也带工作声旁，读音和红很近，孩子容易联系。"
+      },
+      {
+        "char": "绿",
+        "relation": "同偏旁",
+        "note": "红和绿都带纟，古人常从丝帛颜色来认识颜色词。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "虹",
+        "difference": "红是纟旁，多讲颜色；虹是虫旁，指天上的彩虹。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "红",
+    "words": ["红花", "红灯", "红旗", "脸红"],
+    "sentences": ["红花开了。", "红灯亮了，车停下。", "我举起红旗，脸也笑红了。"]
+  },
+  "recording_ladder": {
+    "char": "红",
+    "word": "红花",
+    "sentence": "红灯亮了，车停下。",
+    "free_speak_prompt": "小熊收到一朵红花，它会把花送给谁？"
+  },
+  "interaction_prompts": [
+    "在房间里找三样红色的东西，说出它们的名字。",
+    "看到红灯的图片时，全家一起做“停下”的动作。",
+    "说一说什么时候脸会红：热了、跑步了，还是有点害羞？"
+  ],
+  "parent_script": [
+    "先指左边纟：它像一束丝线，告诉孩子这个字原来和染色的丝布有关。",
+    "再读词：红花、红灯、红旗、脸红，每个词配一个生活画面。",
+    "接着读三句，从短到长读两遍，让孩子听到红在句子里出现。",
+    "最后问：小熊收到一朵红花，它会把花送给谁？让孩子自然开口。"
+  ],
+  "citations": [
+    {
+      "type": "book",
+      "title": "细说汉字",
+      "author": "左民安",
+      "note": "用于参考字源、本义、构形关系，儿童端采用转述。"
+    },
+    {
+      "type": "methodology",
+      "title": "一次讲清楚 0—8 岁儿童的识字问题",
+      "author": "魏智渊",
+      "note": "用于组织字源理解、字族迁移、词句语境和朗读输出。"
+    }
+  ]
+}

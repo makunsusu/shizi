@@ -1,0 +1,116 @@
+{
+  "char": "绿",
+  "pinyin": "lǜ",
+  "stroke_count": 11,
+  "character_type": "形声",
+  "radical": "纟",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 1088,
+  "core_origin": "绿从糸，录声，原来和青绿色的丝帛有关。",
+  "original_meaning": "青绿色、绿色的丝织品。",
+  "meaning_shift_summary": "从绿色丝帛，扩展到草地、树叶、绿灯等生活里的绿色。",
+  "child_story": "古人很早就会给丝线染颜色。绿这个字左边是纟，像一束细细的丝，提醒我们它和丝帛、颜色有关；右边的录帮忙提示读音。最早说绿，常和青绿色的布帛连在一起。后来，孩子眼里的草地、树叶、绿灯，都可以用绿来叫醒那片清新的颜色。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是丝线形旁，右边是录，承担读音线索。"
+    },
+    {
+      "stage": "楷书",
+      "era": "今",
+      "description": "繁体写作綠，简化后左边变成纟，仍保留左右结构。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "颜色旅行",
+      "nodes": ["青绿色丝布", "绿色的东西", "草地树叶", "绿灯通行"]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "绿草",
+        "gloss": "绿色的小草"
+      },
+      {
+        "word": "绿叶",
+        "gloss": "绿色的叶子"
+      },
+      {
+        "word": "绿灯",
+        "gloss": "交通灯里表示可以通行的灯"
+      },
+      {
+        "word": "绿色",
+        "gloss": "像草和叶子那样的颜色"
+      }
+    ],
+    "radical_family": {
+      "radical": "纟",
+      "meaning_hint": "多和丝线、织物、颜色、缠绕有关。",
+      "examples": ["红", "线", "纸", "给"]
+    },
+    "phonetic_family": {
+      "phonetic_component": "录",
+      "sound_hint": "录在绿里提示读音线索，今天声调和韵母会有变化。",
+      "examples": ["录", "禄", "碌"]
+    },
+    "etymology_relations": [
+      {
+        "char": "红",
+        "relation": "同偏旁",
+        "note": "红和绿都带纟，都能从染色丝帛讲到今天的颜色词。"
+      },
+      {
+        "char": "录",
+        "relation": "声旁",
+        "note": "录给绿提供读音线索，帮助孩子认识形声字的办法。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "录",
+        "difference": "绿左边有纟，是颜色；录没有纟，常表示记录。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "绿",
+    "words": ["绿草", "绿叶", "绿灯", "绿色"],
+    "sentences": ["绿草发芽了。", "绿灯亮了，我们过马路。", "春天来了，树叶和小草都是绿色的。"]
+  },
+  "recording_ladder": {
+    "char": "绿",
+    "word": "绿灯",
+    "sentence": "绿灯亮了，我们过马路。",
+    "free_speak_prompt": "小兔走到路口，看见绿灯亮了，它会怎么做？"
+  },
+  "interaction_prompts": [
+    "到窗边找一找绿色：树叶、草地、衣服或书皮都可以。",
+    "家长说红灯，孩子停；家长说绿灯，孩子向前走一步。",
+    "闭上眼想一片绿色草地，再说出草地上可能有什么。"
+  ],
+  "parent_script": [
+    "先指左边纟：告诉孩子绿原来可以从染成青绿色的丝布讲起。",
+    "再读词：绿草、绿叶、绿灯、绿色，让孩子把颜色放回生活画面。",
+    "接着读三句，读到绿灯时配合“向前走”的动作。",
+    "最后问：小兔看见绿灯亮了会怎么做？让孩子顺着情境回答。"
+  ],
+  "citations": [
+    {
+      "type": "book",
+      "title": "细说汉字",
+      "author": "左民安",
+      "note": "用于参考字源、本义、构形关系，儿童端采用转述。"
+    },
+    {
+      "type": "methodology",
+      "title": "一次讲清楚 0—8 岁儿童的识字问题",
+      "author": "魏智渊",
+      "note": "用于组织字源理解、字族迁移、词句语境和朗读输出。"
+    }
+  ]
+}

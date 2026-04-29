@@ -1,0 +1,11 @@
+{
+  "accessKey": "",
+  "resourceId": "seed-tts-2.0",
+  "namespace": "BidirectionalTTS",
+  "speaker": "zh_female_vv_uranus_bigtts",
+  "audioParams": {
+    "format": "mp3",
+    "sample_rate": 24000,
+    "speech_rate": 0
+  }
+}

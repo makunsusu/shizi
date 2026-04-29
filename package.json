@@ -1,0 +1,14 @@
+{
+  "name": "hanzi-origin-card",
+  "version": "1.0.0",
+  "private": true,
+  "description": "儿童字源识字卡本地生成与浏览工具",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check app.js && node --check server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
