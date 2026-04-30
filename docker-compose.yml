@@ -1,0 +1,16 @@
+services:
+  shizi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shizi
+    restart: unless-stopped
+    environment:
+      PORT: 8765
+      DATA_DIR: /app/runtime/data
+      CONFIG_DIR: /app/runtime/config
+    ports:
+      - "18081:8765"
+    volumes:
+      - /vol3/@appdata/my_apps/appdata/shizi/data:/app/runtime/data
+      - /vol3/@appdata/my_apps/appdata/shizi/config:/app/runtime/config
