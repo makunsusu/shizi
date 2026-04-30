@@ -3,7 +3,7 @@ const path = require("path");
 const https = require("https");
 
 const root = path.resolve(__dirname, "..");
-const dataDir = path.join(root, "data");
+const dataDir = path.resolve(process.env.DATA_DIR || path.join(root, "data"));
 const cardsDir = path.join(dataDir, "cards");
 const registryPath = path.join(dataDir, "characters.json");
 const localFrequencyPath = path.join(dataDir, "hanzi-frequency-rank.csv");

@@ -1,8 +1,12 @@
-﻿# 字源识字卡（shizi）
+# 字源识字卡（shizi）
 
-一个本地运行的儿童识字卡工具。
+一个本地运行的儿童识字卡工具，集成了：
 
-项目把 AI 生成、字卡浏览、TTS 朗读、音频缓存和字频补全放在了一起，适合持续积累自己的识字卡素材。
+- AI 生成字卡
+- 已有字卡浏览与搜索
+- TTS 朗读与音频缓存
+- 本地字频补全
+- 适合 NAS 常驻部署的数据落盘结构
 
 ## 功能概览
 
@@ -17,12 +21,13 @@
 ## 运行环境
 
 - Node.js 18 或更高版本
+- 如需部署到 NAS：Docker、Docker Compose、Jenkins、SSH、rsync
 
-## 快速开始
+## 本地开发
 
 ### 1. 配置 AI 生成
 
-参考 [config/openai-config.example.json](d:/llm_projects/shizi/config/openai-config.example.json) 新建本地配置：
+参考 [config/openai-config.example.json](d:/llm_projects/shizi/config/openai-config.example.json) 新建：
 
 - `config/openai-config.json`
 
@@ -40,7 +45,7 @@
 
 ### 2. 配置 TTS
 
-参考 [config/tts-config.example.json](d:/llm_projects/shizi/config/tts-config.example.json) 新建本地配置：
+参考 [config/tts-config.example.json](d:/llm_projects/shizi/config/tts-config.example.json) 新建：
 
 - `config/tts-config.json`
 
@@ -65,7 +70,7 @@
 npm start
 ```
 
-或
+或：
 
 ```bash
 npm run dev
@@ -81,47 +86,17 @@ npm run dev
 npm run check
 ```
 
-## 页面功能
+### 5. 字频补全
 
-### 已有字卡
+```bash
+node scripts/fill-frequency-rank.js
+```
 
-左侧可以：
+如果你在容器或 NAS 上使用挂载目录，也可以传入：
 
-- 浏览全部字卡
-- 搜索汉字、拼音、文件名
-- 切换当前展示字卡
-
-### 新增字卡
-
-点击“新增”后可以：
-
-- 一次输入一个或多个汉字
-- 自动提取汉字
-- 自动跳过已经存在的字卡
-- 按顺序批量生成
-- 在加载层里查看生成进度
-
-生成成功后会：
-
-- 把字卡 JSON 保存到 `data/cards/`
-- 更新字表索引 `data/characters.json`
-
-### 批量语音
-
-点击“批量语音”后可以：
-
-- 留空输入框：为全部已有字卡生成语音
-- 输入若干汉字：只为指定字卡生成语音
-- 勾选要生成的内容类型：
-  - 单字读音
-  - 字源故事
-  - 字词句
-
-生成结果会缓存到：
-
-- `data/audio/`
-
-如果缓存文件被手动删除，再次点击朗读按钮时会自动重新生成。
+```bash
+DATA_DIR=/你的数据目录 node scripts/fill-frequency-rank.js
+```
 
 ## 目录结构
 
@@ -132,87 +107,184 @@ shizi/
 ├─ index.html
 ├─ styles.css
 ├─ package.json
+├─ Dockerfile
+├─ docker-compose.yml
+├─ Jenkinsfile
 ├─ config/
 │  ├─ openai-config.example.json
-│  ├─ openai-config.json        # 本地文件，已在 .gitignore 中忽略
+│  ├─ openai-config.json        # 本地文件，默认忽略
 │  ├─ tts-config.example.json
-│  └─ tts-config.json           # 本地文件，已在 .gitignore 中忽略
+│  └─ tts-config.json           # 本地文件，默认忽略
 ├─ data/
 │  ├─ cards/                    # 字卡 JSON
 │  ├─ audio/                    # TTS 音频缓存
 │  ├─ characters.json           # 字卡索引
 │  └─ hanzi-frequency-rank.csv  # 本地字频表
-└─ scripts/
-   └─ fill-frequency-rank.js
+├─ scripts/
+│  └─ fill-frequency-rank.js
+└─ skills/
+   └─ mq-hanzi-card.md
 ```
 
-## 数据文件说明
+## 环境变量
 
-### `data/cards/*.json`
+服务端现在支持以下运行时目录注入，方便容器挂载：
 
-每个字一张卡，文件名格式类似：
+- `PORT`
+  - 默认：`8765`
+- `DATA_DIR`
+  - 默认：`<repo>/data`
+  - 用途：字卡、字表、音频缓存、字频表
+- `CONFIG_DIR`
+  - 默认：`<repo>/config`
+  - 用途：`openai-config.json`、`tts-config.json`
 
-- `语_v5.json`
-- `红_v5.json`
+健康检查接口：
 
-### `data/characters.json`
+- `GET /api/health`
 
-字卡索引文件，前端列表和排序依赖它。
+返回内容会包含当前实际生效的 `dataDir`、`configDir` 等路径。
 
-主要字段：
+## 1Panel 部署
 
-- `char`
-- `pinyin`
-- `file`
-- `frequency_rank`
+本项目已经补齐以下部署文件：
 
-### `data/hanzi-frequency-rank.csv`
+- [Dockerfile](d:/llm_projects/shizi/Dockerfile)
+- [docker-compose.yml](d:/llm_projects/shizi/docker-compose.yml)
+- [Jenkinsfile](d:/llm_projects/shizi/Jenkinsfile)
 
-项目本地保存的汉字字频表。
+推荐的 NAS 目录规划：
 
-目前 [scripts/fill-frequency-rank.js](d:/llm_projects/shizi/scripts/fill-frequency-rank.js) 会优先使用这份本地 CSV，不依赖外网。
+```text
+/vol3/@appdata/my_apps/shizi/
+  repo/                                  # Git 仓库代码
+/vol3/@appdata/my_apps/appdata/shizi/
+  data/
+    cards/                               # 持久化字卡
+    audio/                               # 持久化音频缓存
+    characters.json                      # 持久化字表索引
+    hanzi-frequency-rank.csv             # 持久化字频表
+  config/
+    openai-config.json                   # AI 配置
+    tts-config.json                      # TTS 配置
+```
 
-## 字频补全脚本
+### 首次部署到 1Panel
 
-如果你新增了一批字卡，想统一补齐或刷新 `frequency_rank`，可以运行：
+1. SSH 登录 NAS。
+2. 准备仓库目录：
 
 ```bash
-node scripts/fill-frequency-rank.js
+mkdir -p /vol3/@appdata/my_apps/shizi
+cd /vol3/@appdata/my_apps/shizi
+git clone <你的仓库地址> repo
+mkdir -p /vol3/@appdata/my_apps/appdata/shizi/data
+mkdir -p /vol3/@appdata/my_apps/appdata/shizi/config
 ```
 
-脚本会：
+3. 进入项目目录，先复制配置模板：
 
-- 扫描 `data/cards/*.json`
-- 按本地字频表回填 `frequency_rank`
-- 同步更新 `data/characters.json`
+```bash
+cp config/openai-config.example.json /vol3/@appdata/my_apps/appdata/shizi/config/openai-config.json
+cp config/tts-config.example.json /vol3/@appdata/my_apps/appdata/shizi/config/tts-config.json
+```
 
-## TTS 说明
+4. 编辑 NAS 上的真实配置文件，填入你的 API Key。
+5. 打开 1Panel，在“容器编排”中选择：
 
-### 当前朗读入口
+```text
+/vol3/@appdata/my_apps/shizi/repo/docker-compose.yml
+```
 
-页面里当前会使用服务端 TTS 的内容有：
+6. 启动编排后，默认访问地址：
 
-- 首页大字读音
-- 字源故事
-- 字词句
+```text
+http://NAS_IP:18081/index.html
+```
 
-### 单字读音
+如果你要在 1Panel 里绑定域名，可以把反向代理目标写成：
 
-单字读音走 SSML，会带上：
+```text
+http://127.0.0.1:18081
+```
 
-- 声母
-- 韵母
-- 声调
-- 完整拼音
-- 两个示例词
+### 手动升级
 
-### 音频命名
+在 NAS 上执行：
 
-音频文件会带可读前缀，例如：
+```bash
+cd /vol3/@appdata/my_apps/shizi/repo
+git pull
+docker compose up -d --build
+docker image prune -f
+```
 
-- `语_character_<hash>.mp3`
-- `yu_story_<hash>.mp3`
-- `yu_reading_<hash>.mp3`
+### 编排说明
+
+[docker-compose.yml](d:/llm_projects/shizi/docker-compose.yml) 默认会：
+
+- 把 NAS 的 `.../appdata/shizi/data` 挂载到容器内 `/app/runtime/data`
+- 把 NAS 的 `.../appdata/shizi/config` 挂载到容器内 `/app/runtime/config`
+- 将外部端口 `18081` 映射到容器端口 `8765`
+
+## Jenkins 自动部署
+
+本项目的 [Jenkinsfile](d:/llm_projects/shizi/Jenkinsfile) 参考了 `D:\llm_projects\aiManagerPrompter` 的做法，流程是：
+
+1. Jenkins 从 Git 拉取代码
+2. 通过 `rsync` 同步代码到 NAS 的 `repo/`
+3. 在 NAS 上初始化持久化目录与配置模板
+4. 执行 `docker compose up -d --build`
+5. 调用 `/api/health` 做部署后验证
+
+### Jenkins 凭据
+
+Jenkins 里需要准备：
+
+- `Credentials`
+- `Credentials Binding`
+- `SSH Credentials`
+- `Pipeline`
+- `Git`
+
+并创建一条 SSH 私钥凭据，例如：
+
+- 类型：`SSH Username with private key`
+- ID：`fn-nas-ssh`
+- Username：可登录 NAS 的用户
+- Private Key：该用户的 SSH 私钥
+
+### Jenkins 任务创建方式
+
+1. `New Item`
+2. 选择 `Pipeline`
+3. `Pipeline script from SCM`
+4. `SCM` 选择 `Git`
+5. `Script Path` 填：
+
+```text
+Jenkinsfile
+```
+
+推荐重点确认这些参数：
+
+- `NAS_HOST`
+- `NAS_USER`
+- `SSH_CREDENTIALS_ID`
+- `DEPLOY_DIR`
+- `DATA_DIR`
+- `CONFIG_DIR`
+- `HEALTH_URL`
+
+默认值已经按 `shizi` 的 NAS 路径写好，通常只需要按你的 NAS 实际情况微调。
+
+### Jenkins 首次部署注意点
+
+- Jenkins 节点和 NAS 都要安装 `rsync`
+- NAS 上执行 Jenkins 的用户要能运行 `docker compose`
+- 首次部署后，需要确认：
+  - `CONFIG_DIR/openai-config.json` 已填入真实配置
+  - `CONFIG_DIR/tts-config.json` 已填入真实配置
 
 ## 常见操作
 
@@ -233,23 +305,40 @@ node scripts/fill-frequency-rank.js
 5. 留空或输入指定汉字
 6. 等待批量完成
 
-### 统一刷新字频排名
+### 检查服务健康状态
 
 ```bash
-node scripts/fill-frequency-rank.js
+curl http://127.0.0.1:8765/api/health
+```
+
+如果在 NAS 上通过 compose 部署：
+
+```bash
+curl http://127.0.0.1:18081/api/health
 ```
 
 ## 注意事项
 
-- 不要用 `python -m http.server` 直接替代本项目服务端，因为 AI 生成和 TTS 都依赖 [server.js](d:/llm_projects/shizi/server.js) 提供的本地接口。
-- `config/openai-config.json` 和 `config/tts-config.json` 是本地私有配置，默认不提交。
-- `data/audio/` 是缓存目录，默认不提交。
-- 现在字卡 JSON 已经统一放到 `data/cards/`，不要再往 `data/` 根目录直接放卡片文件。
+- 不要用 `python -m http.server` 直接替代本项目服务端，因为 AI 生成和 TTS 依赖 [server.js](d:/llm_projects/shizi/server.js) 提供的本地接口。
+- `config/openai-config.json` 和 `config/tts-config.json` 默认不提交，部署时建议放在 NAS 持久化配置目录。
+- 现在前端读取 `/data/*` 资源时，服务端会按 `DATA_DIR` 解析真实文件路径，所以容器挂载后仍能正常访问字卡和音频。
+- 首次部署时如果持久化目录为空，`Jenkinsfile` 会自动用仓库里的 `data/` 和 `config/*.example.json` 做初始化。
 
-## 相关脚本
+## 本地验证
 
 ```bash
-npm start      # 启动本地服务
-npm run dev    # 启动本地服务
-npm run check  # 语法检查
+npm run check
+```
+
+如果你本机装了 Docker，也建议补跑：
+
+```bash
+docker build -t shizi:local .
+docker run --rm -p 18081:8765 shizi:local
+```
+
+然后访问：
+
+```text
+http://127.0.0.1:18081/api/health
 ```

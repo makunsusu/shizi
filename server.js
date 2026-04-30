@@ -7,7 +7,11 @@ const crypto = require("crypto");
 const root = __dirname;
 const port = Number(process.env.PORT || 8765);
 const host = process.env.HOST || "0.0.0.0";
-const cardsDir = path.join(root, "data", "cards");
+const dataDir = path.resolve(process.env.DATA_DIR || path.join(root, "data"));
+const configDir = path.resolve(process.env.CONFIG_DIR || path.join(root, "config"));
+const cardsDir = path.join(dataDir, "cards");
+const audioDir = path.join(dataDir, "audio");
+const registryPath = path.join(dataDir, "characters.json");
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -49,6 +53,10 @@ const hanziCardSchema = {
 
 const server = http.createServer(async (request, response) => {
   try {
+    if (request.method === "GET" && request.url === "/api/health") {
+      handleHealth(response);
+      return;
+    }
     if (request.method === "POST" && request.url === "/api/hanzi-card") {
       await handleHanziCard(request, response);
       return;
@@ -64,7 +72,9 @@ const server = http.createServer(async (request, response) => {
 });
 
 syncRegistryWithDataFiles();
-fs.mkdirSync(path.join(root, "data", "audio"), { recursive: true });
+fs.mkdirSync(cardsDir, { recursive: true });
+fs.mkdirSync(audioDir, { recursive: true });
+fs.mkdirSync(path.dirname(registryPath), { recursive: true });
 
 server.listen(port, host, () => {
   log(`字源识字卡服务已启动：http://${host}:${port}/index.html`);
@@ -95,14 +105,20 @@ async function handleHanziCard(request, response) {
 
 function serveStatic(request, response) {
   const urlPath = decodeURIComponent(new URL(request.url, `http://${host}:${port}`).pathname);
-  if (urlPath === "/config/openai-config.json") {
+  if (urlPath === "/config/openai-config.json" || urlPath === "/config/tts-config.json") {
     response.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("配置文件只允许本地服务读取");
     return;
   }
-  const safePath = path.normalize(urlPath === "/" ? "/index.html" : urlPath).replace(/^(\.\.[/\\])+/, "");
-  const filePath = path.join(root, safePath);
-  if (!filePath.startsWith(root)) {
+  const requestPath = urlPath === "/" ? "/index.html" : urlPath;
+  const safePath = path.normalize(requestPath).replace(/^(\.\.[/\\])+/, "");
+  const isDataRequest = safePath === `${path.sep}data` || safePath.startsWith(`${path.sep}data${path.sep}`);
+  const staticRoot = isDataRequest ? dataDir : root;
+  const relativePath = isDataRequest
+    ? safePath.replace(new RegExp(`^\\${path.sep}data`), "") || path.sep
+    : safePath;
+  const filePath = path.join(staticRoot, relativePath);
+  if (!filePath.startsWith(staticRoot)) {
     response.writeHead(403);
     response.end("禁止访问");
     return;
@@ -119,12 +135,12 @@ function serveStatic(request, response) {
 }
 
 function readConfig() {
-  const configPath = path.join(root, "config", "openai-config.json");
+  const configPath = path.join(configDir, "openai-config.json");
   return JSON.parse(fs.readFileSync(configPath, "utf-8"));
 }
 
 function readTTSConfig() {
-  const configPath = path.join(root, "config", "tts-config.json");
+  const configPath = path.join(configDir, "tts-config.json");
   if (!fs.existsSync(configPath)) return null;
   return JSON.parse(fs.readFileSync(configPath, "utf-8"));
 }
@@ -152,7 +168,6 @@ function buildAudioFileName(hash, params, meta = {}) {
 }
 
 function findExistingAudioFileByHash(hash, format) {
-  const audioDir = path.join(root, "data", "audio");
   const exactLegacy = `${hash}.${format}`;
   const exactLegacyPath = path.join(audioDir, exactLegacy);
   if (fs.existsSync(exactLegacyPath)) {
@@ -188,7 +203,7 @@ async function handleTTS(request, response) {
   const synthesisText = normalizedTextType === "ssml" ? ssmlText : text;
   const hash = getAudioHash(synthesisText, speaker, audioParams, normalizedTextType);
   const audioFile = buildAudioFileName(hash, audioParams, { audioKey, audioSlug });
-  const audioPath = path.join(root, "data", "audio", audioFile);
+  const audioPath = path.join(audioDir, audioFile);
 
   if (fs.existsSync(audioPath)) {
     sendJSON(response, 200, { success: true, audioUrl: `/data/audio/${audioFile}`, cached: true });
@@ -197,7 +212,7 @@ async function handleTTS(request, response) {
 
   const existingFile = findExistingAudioFileByHash(hash, audioParams.format || "mp3");
   if (existingFile) {
-    const existingPath = path.join(root, "data", "audio", existingFile);
+    const existingPath = path.join(audioDir, existingFile);
     if (existingPath !== audioPath) {
       fs.renameSync(existingPath, audioPath);
       log(`TTS 缓存已迁移：data/audio/${existingFile} -> data/audio/${audioFile}`);
@@ -325,7 +340,6 @@ function syncRegistryWithDataFiles() {
 }
 
 function readRegistry() {
-  const registryPath = path.join(root, "data", "characters.json");
   if (!fs.existsSync(registryPath)) {
     return { version: 1, updated_at: today(), items: [] };
   }
@@ -333,7 +347,6 @@ function readRegistry() {
 }
 
 function writeRegistry(items) {
-  const registryPath = path.join(root, "data", "characters.json");
   const sortedItems = [...items].sort((a, b) => {
     const rankA = Number(a.frequency_rank || 999999);
     const rankB = Number(b.frequency_rank || 999999);
@@ -523,6 +536,19 @@ function readProjectSkill() {
   } catch {
     return "项目内技能文件缺失，按内置字段模板生成。";
   }
+}
+
+function handleHealth(response) {
+  sendJSON(response, 200, {
+    ok: true,
+    paths: {
+      dataDir,
+      configDir,
+      cardsDir,
+      audioDir,
+      registryPath
+    }
+  });
 }
 
 function extractOutputText(payload) {
