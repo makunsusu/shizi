@@ -50,21 +50,23 @@
   <div id="confirmDialog" class="dialog-backdrop" hidden>
     <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
       <h2 id="confirmTitle">确认新增</h2>
-      <div id="addInputGroup" class="dialog-field">
-        <label for="newCharInput">新增字卡</label>
-        <textarea id="newCharInput" rows="4" placeholder="输入或粘贴多个汉字，例如：天地人和"></textarea>
-        <p class="hint">支持连续输入、空格或换行分隔，系统会自动提取汉字并批量生成。</p>
-      </div>
-      <div id="audioOptionsGroup" class="dialog-field" hidden>
-        <label>生成内容</label>
-        <div class="checkbox-grid">
-          <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="character" checked> 单字读音</label>
-          <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="story" checked> 字源故事</label>
-          <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="reading" checked> 字词句</label>
+      <div class="dialog-content">
+        <div id="addInputGroup" class="dialog-field">
+          <label for="newCharInput">新增字卡</label>
+          <textarea id="newCharInput" rows="4" placeholder="输入或粘贴多个汉字，例如：天地人和"></textarea>
+          <p class="hint">支持连续输入、空格或换行分隔，系统会自动提取汉字并批量生成。</p>
         </div>
-        <p class="hint">留空则为全部已有字卡生成；输入汉字则只处理指定范围。</p>
+        <div id="audioOptionsGroup" class="dialog-field" hidden>
+          <label>生成内容</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="character" checked> 单字读音</label>
+            <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="story" checked> 字源故事</label>
+            <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="reading" checked> 字词句</label>
+          </div>
+          <p class="hint">留空则为全部已有字卡生成；输入汉字则只处理指定范围。</p>
+        </div>
+        <p id="confirmMessage" class="dialog-message"></p>
       </div>
-      <p id="confirmMessage"></p>
       <div class="dialog-actions">
         <button id="cancelGenerateButton" class="secondary" type="button">取消</button>
         <button id="confirmGenerateButton" type="button">确认</button>
