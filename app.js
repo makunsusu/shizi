@@ -6,8 +6,11 @@ const state = {
   generatedData: null,
   writer: null,
   batchResult: null,
-  dialogMode: "add"
+  dialogMode: "add",
+  activeBatchTaskId: ""
 };
+
+const ACTIVE_BATCH_TASK_STORAGE_KEY = "shizi_active_batch_task_id";
 
 const elements = {
   search: document.getElementById("characterSearch"),
@@ -74,6 +77,7 @@ async function init() {
   bindEvents();
   renderTitleDashboard();
   await loadCharacterList();
+  await resumeActiveBatchTask();
 }
 
 function bindEvents() {
@@ -145,7 +149,7 @@ function prepareGenerateCharacters() {
     message: buildBatchConfirmMessage(parsed),
     confirmText: `生成 ${parsed.newChars.length} 个字`,
     showInput: false,
-    onConfirm: () => generateCharactersByAI(parsed.newChars)
+    onConfirm: () => generateCharactersByAIInBackground(parsed.newChars)
   });
 }
 
@@ -649,8 +653,143 @@ async function generateSingleCharacter(char, config) {
   return { data };
 }
 
+async function generateCharactersByAIInBackground(chars) {
+  elements.openAddDialogButton.disabled = true;
+  setLoading(true);
+
+  try {
+    const task = await startHanziBatchTask(chars);
+    setActiveBatchTaskId(task.id);
+    await watchHanziBatchTask(task.id);
+  } finally {
+    setLoading(false);
+    elements.openAddDialogButton.disabled = false;
+  }
+}
+
 async function loadRuntimeAIConfig() {
   return location.protocol === "file:" ? await loadOpenAIConfig() : {};
+}
+
+async function startHanziBatchTask(chars) {
+  const response = await fetch("/api/hanzi-card/batch", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chars })
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.error || "批量任务创建失败");
+  }
+  return payload.task || payload;
+}
+
+async function fetchHanziBatchTask(taskId) {
+  const response = await fetch(`/api/hanzi-card/batch/${encodeURIComponent(taskId)}`, {
+    cache: "no-store"
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.error || "批量任务读取失败");
+  }
+  return payload.task || payload;
+}
+
+async function watchHanziBatchTask(taskId) {
+  while (true) {
+    const task = await fetchHanziBatchTask(taskId);
+    renderHanziBatchTaskProgress(task);
+    if (task.status === "completed" || task.status === "completed_with_errors" || task.status === "failed") {
+      await finalizeHanziBatchTask(task);
+      return task;
+    }
+    await sleep(1200);
+  }
+}
+
+function renderHanziBatchTaskProgress(task) {
+  updateLoadingProgress({
+    total: Number(task.total || 0),
+    current: Number(task.current || 0),
+    currentChar: task.currentChar || "",
+    success: Number(task.success || 0),
+    failed: Number(task.failed || 0),
+    skipped: Number(task.skipped || 0),
+    title: "批量生成中，请稍候",
+    description: "任务已经交给服务端后台执行，即使关闭页面也会继续处理。",
+    items: task.items || []
+  });
+}
+
+async function finalizeHanziBatchTask(task) {
+  clearActiveBatchTaskId();
+  await loadCharacterList();
+  const successChars = (task.items || [])
+    .filter((item) => item.status === "success")
+    .map((item) => item.char);
+  if (successChars.length > 0) {
+    const savedChar = successChars[successChars.length - 1];
+    const savedItem = state.list.find((item) => item.char === savedChar);
+    if (savedItem) {
+      await loadSelectedCharacter(savedItem.file);
+    }
+  }
+
+  if (task.status === "failed") {
+    showInfoDialog("批量新增失败", task.error || "后台任务执行失败");
+    return;
+  }
+
+  const failedItems = (task.items || [])
+    .filter((item) => item.status === "failed")
+    .map((item) => ({ char: item.char, message: item.label || "生成失败" }));
+  showInfoDialog(
+    "批量新增完成",
+    buildBatchResultMessageV2(Number(task.total || 0), Number(task.success || 0), Number(task.failed || 0), failedItems, Number(task.skipped || 0))
+  );
+}
+
+async function resumeActiveBatchTask() {
+  const taskId = readActiveBatchTaskId();
+  if (!taskId) return;
+  state.activeBatchTaskId = taskId;
+  elements.openAddDialogButton.disabled = true;
+  setLoading(true);
+  try {
+    await watchHanziBatchTask(taskId);
+  } catch (error) {
+    clearActiveBatchTaskId();
+    showInfoDialog("任务恢复失败", error.message || "无法恢复后台批量任务");
+  } finally {
+    setLoading(false);
+    elements.openAddDialogButton.disabled = false;
+  }
+}
+
+function setActiveBatchTaskId(taskId) {
+  state.activeBatchTaskId = taskId;
+  try {
+    localStorage.setItem(ACTIVE_BATCH_TASK_STORAGE_KEY, taskId);
+  } catch {}
+}
+
+function readActiveBatchTaskId() {
+  try {
+    return localStorage.getItem(ACTIVE_BATCH_TASK_STORAGE_KEY) || "";
+  } catch {
+    return "";
+  }
+}
+
+function clearActiveBatchTaskId() {
+  state.activeBatchTaskId = "";
+  try {
+    localStorage.removeItem(ACTIVE_BATCH_TASK_STORAGE_KEY);
+  } catch {}
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function showInfoDialog(title, message) {
@@ -688,6 +827,21 @@ function buildBatchConfirmMessage(parsed) {
 
 function buildBatchResultMessage(total, success, failed, failedItems) {
   const parts = [`共处理 ${total} 个汉字，成功 ${success} 个。`];
+  if (failed > 0) {
+    const detail = failedItems
+      .slice(0, 3)
+      .map((item) => `${item.char}：${item.message}`)
+      .join("；");
+    parts.push(`失败 ${failed} 个。${detail}`);
+  }
+  return parts.join("");
+}
+
+function buildBatchResultMessageV2(total, success, failed, failedItems, skipped = 0) {
+  const parts = [`共处理 ${total} 个汉字，成功 ${success} 个。`];
+  if (skipped > 0) {
+    parts.push(`跳过 ${skipped} 个已存在字卡。`);
+  }
   if (failed > 0) {
     const detail = failedItems
       .slice(0, 3)

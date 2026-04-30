@@ -12,6 +12,8 @@ const configDir = path.resolve(process.env.CONFIG_DIR || path.join(root, "config
 const cardsDir = path.join(dataDir, "cards");
 const audioDir = path.join(dataDir, "audio");
 const registryPath = path.join(dataDir, "characters.json");
+const batchTasks = new Map();
+const maxBatchTasks = 20;
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -55,6 +57,14 @@ const server = http.createServer(async (request, response) => {
   try {
     if (request.method === "GET" && request.url === "/api/health") {
       handleHealth(response);
+      return;
+    }
+    if (request.method === "POST" && request.url === "/api/hanzi-card/batch") {
+      await handleHanziCardBatch(request, response);
+      return;
+    }
+    if (request.method === "GET" && request.url.startsWith("/api/hanzi-card/batch/")) {
+      handleHanziCardBatchStatus(request, response);
       return;
     }
     if (request.method === "POST" && request.url === "/api/hanzi-card") {
@@ -101,6 +111,54 @@ async function handleHanziCard(request, response) {
   const savedItem = saveCardData(data);
   log(`保存完成：data/cards/${savedItem.file}，字表已更新`);
   sendJSON(response, 200, { data, item: savedItem });
+}
+
+async function handleHanziCardBatch(request, response) {
+  const body = await readBody(request);
+  const payload = JSON.parse(body || "{}");
+  const chars = Array.isArray(payload.chars) ? payload.chars : [];
+  const uniqueChars = [];
+  for (const char of chars) {
+    if (/^\p{Script=Han}$/u.test(char || "") && !uniqueChars.includes(char)) {
+      uniqueChars.push(char);
+    }
+  }
+
+  if (uniqueChars.length === 0) {
+    sendJSON(response, 400, { error: "请至少传入一个汉字" });
+    return;
+  }
+
+  const config = readConfig();
+  if (!config.baseUrl || !config.apiKey || !config.model) {
+    sendJSON(response, 400, { error: "请先配置 baseUrl、apiKey 和 model" });
+    return;
+  }
+
+  const task = createBatchTask(uniqueChars);
+  log(`收到批量生成任务：${task.id}，共 ${uniqueChars.length} 个字`);
+  processBatchTask(task.id, config).catch((error) => {
+    log(`批量任务异常终止：${task.id}，原因：${error.message}`);
+    const failedTask = batchTasks.get(task.id);
+    if (failedTask) {
+      failedTask.status = "failed";
+      failedTask.error = error.message;
+      failedTask.updatedAt = new Date().toISOString();
+      persistBatchTask(failedTask);
+    }
+  });
+  sendJSON(response, 202, { taskId: task.id, task: buildBatchTaskResponse(task) });
+}
+
+function handleHanziCardBatchStatus(request, response) {
+  const pathname = new URL(request.url, `http://${host}:${port}`).pathname;
+  const taskId = decodeURIComponent(pathname.replace("/api/hanzi-card/batch/", "").trim());
+  const task = batchTasks.get(taskId);
+  if (!task) {
+    sendJSON(response, 404, { error: "任务不存在或已过期" });
+    return;
+  }
+  sendJSON(response, 200, { task: buildBatchTaskResponse(task) });
 }
 
 function serveStatic(request, response) {
@@ -383,6 +441,103 @@ function saveCardData(data) {
   items.push(item);
   writeRegistry(items);
   return item;
+}
+
+function createBatchTask(chars) {
+  const task = {
+    id: `batch-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    type: "hanzi-card-batch",
+    status: "running",
+    chars: [...chars],
+    total: chars.length,
+    current: 0,
+    currentChar: "",
+    success: 0,
+    failed: 0,
+    skipped: 0,
+    error: "",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    completedAt: "",
+    items: chars.map((char) => ({ char, status: "pending", label: "等待生成" }))
+  };
+  persistBatchTask(task);
+  return task;
+}
+
+function persistBatchTask(task) {
+  batchTasks.set(task.id, task);
+  const taskIds = [...batchTasks.keys()];
+  while (taskIds.length > maxBatchTasks) {
+    const firstId = taskIds.shift();
+    if (firstId) batchTasks.delete(firstId);
+  }
+}
+
+function buildBatchTaskResponse(task) {
+  return {
+    id: task.id,
+    type: task.type,
+    status: task.status,
+    total: task.total,
+    current: task.current,
+    currentChar: task.currentChar,
+    success: task.success,
+    failed: task.failed,
+    skipped: task.skipped,
+    error: task.error,
+    createdAt: task.createdAt,
+    updatedAt: task.updatedAt,
+    completedAt: task.completedAt,
+    items: task.items
+  };
+}
+
+async function processBatchTask(taskId, config) {
+  const task = batchTasks.get(taskId);
+  if (!task) return;
+
+  const apiMode = config.apiMode || (config.baseUrl.includes("api.openai.com") ? "responses" : "chat_completions");
+  for (let index = 0; index < task.chars.length; index++) {
+    const currentTask = batchTasks.get(taskId);
+    if (!currentTask) return;
+    const char = currentTask.chars[index];
+    currentTask.current = index;
+    currentTask.currentChar = char;
+    currentTask.updatedAt = new Date().toISOString();
+    currentTask.items[index] = { char, status: "working", label: "生成中" };
+    persistBatchTask(currentTask);
+
+    try {
+      const existingFile = path.join(cardsDir, `${char}_v5.json`);
+      if (fs.existsSync(existingFile)) {
+        currentTask.skipped += 1;
+        currentTask.items[index] = { char, status: "skipped", label: "已存在，已跳过" };
+      } else {
+        const data = await requestValidatedHanziCard(config, char, apiMode);
+        saveCardData(data);
+        currentTask.success += 1;
+        currentTask.items[index] = { char, status: "success", label: "已完成" };
+      }
+    } catch (error) {
+      currentTask.failed += 1;
+      currentTask.items[index] = { char, status: "failed", label: error.message || "生成失败" };
+      currentTask.error = error.message || "生成失败";
+    }
+
+    currentTask.current = index + 1;
+    currentTask.updatedAt = new Date().toISOString();
+    persistBatchTask(currentTask);
+  }
+
+  const completedTask = batchTasks.get(taskId);
+  if (!completedTask) return;
+  completedTask.status = completedTask.failed > 0 ? "completed_with_errors" : "completed";
+  completedTask.currentChar = "";
+  completedTask.completedAt = new Date().toISOString();
+  completedTask.updatedAt = completedTask.completedAt;
+  persistBatchTask(completedTask);
+  log(`批量任务完成：${taskId}，成功 ${completedTask.success}，失败 ${completedTask.failed}，跳过 ${completedTask.skipped}`);
 }
 
 function readBody(request) {
