@@ -1,0 +1,160 @@
+{
+  "char": "声",
+  "pinyin": "shēng",
+  "stroke_count": 7,
+  "character_type": "会意字",
+  "radical": "士",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 195,
+  "core_origin": "甲骨文像手持小锤敲击磬（古代乐器）的样子，表示声音。",
+  "original_meaning": "声音",
+  "meaning_shift_summary": "本义是声音，引申为发出声音、名声、声调等。",
+  "child_story": "很久以前，人们用石头做成一种乐器叫“磬”。敲击磬会发出清脆的声音。古人就画了一只手拿着小锤敲磬的样子，来表示“声音”。后来这个字慢慢变成了今天的“声”。所以“声”字里藏着敲击乐器的画面呢！",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商",
+      "description": "像手持小锤敲击磬形，表示声音。"
+    },
+    {
+      "stage": "金文",
+      "era": "西周",
+      "description": "字形更加规整，仍保留磬和手的形状。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "字形进一步简化，上部为“磬”的变形，下部为“耳”，表示声音入耳。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "简化为“声”，上部为“士”，下部为“尸”的变形。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "声音 → 发出声音",
+      "nodes": [
+        "声音",
+        "发声",
+        "声明"
+      ]
+    },
+    {
+      "label": "声音 → 名声",
+      "nodes": [
+        "声音",
+        "名声",
+        "声誉"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "声音",
+        "gloss": "物体振动产生的听觉感受"
+      },
+      {
+        "word": "大声",
+        "gloss": "声音响亮"
+      },
+      {
+        "word": "歌声",
+        "gloss": "唱歌的声音"
+      },
+      {
+        "word": "笑声",
+        "gloss": "笑的声音"
+      },
+      {
+        "word": "声明",
+        "gloss": "公开说明或表态"
+      }
+    ],
+    "radical_family": {
+      "radical": "士",
+      "meaning_hint": "与声音相关",
+      "examples": [
+        "声",
+        "壴（zhù，鼓的本字）"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "声",
+      "sound_hint": "读作 shēng",
+      "examples": [
+        "声",
+        "升（shēng，同音）"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "磬",
+        "relation": "字源同源",
+        "note": "声的本字与磬有关，磬是古代乐器。"
+      },
+      {
+        "char": "听",
+        "relation": "语义相关",
+        "note": "声音需要耳朵听。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "生",
+        "difference": "声有“士”字头，生是“牛”字底，读音不同。"
+      },
+      {
+        "char": "升",
+        "difference": "声是上下结构，升是独体字，意思不同。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "声",
+    "words": [
+      "声音",
+      "大声",
+      "歌声"
+    ],
+    "sentences": [
+      "小鸟的歌声真好听。",
+      "请你大声读出来。",
+      "我听到了雨声。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "声",
+    "word": "声音",
+    "sentence": "我喜欢听雨声。",
+    "free_speak_prompt": "你最喜欢什么声音？为什么？"
+  },
+  "interaction_prompts": [
+    "和孩子一起模仿三种动物的叫声，说说它们的声音有什么不同。",
+    "让孩子闭上眼睛，你发出一种声音（如拍手、敲门），让他猜是什么。",
+    "和孩子一起找家里能发出声音的东西，比如闹钟、门铃，说说它们的声音。"
+  ],
+  "parent_script": [
+    "先指着“声”字，告诉孩子这个字像一个人敲乐器发出声音。",
+    "和孩子一起读词语：声音、大声、歌声，边读边做动作。",
+    "读句子“小鸟的歌声真好听”，让孩子模仿小鸟叫。",
+    "问孩子“你最喜欢什么声音？”鼓励他完整回答。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "声，音也。从耳，殸声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "汉字树",
+      "author": "廖文豪",
+      "note": "从字源理解汉字，适合儿童识字。"
+    }
+  ]
+}

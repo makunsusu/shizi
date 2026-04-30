@@ -1,18 +1,114 @@
 {
   "version": 1,
-  "updated_at": "2026-04-29",
+  "updated_at": "2026-04-30",
   "items": [
+    {
+      "char": "的",
+      "pinyin": "de",
+      "file": "的_v5.json",
+      "frequency_rank": 1
+    },
+    {
+      "char": "们",
+      "pinyin": "men",
+      "file": "们_v5.json",
+      "frequency_rank": 13
+    },
+    {
+      "char": "说",
+      "pinyin": "shuō",
+      "file": "说_v5.json",
+      "frequency_rank": 24
+    },
+    {
+      "char": "你",
+      "pinyin": "nǐ",
+      "file": "你_v5.json",
+      "frequency_rank": 32
+    },
+    {
+      "char": "行",
+      "pinyin": "xíng",
+      "file": "行_v5.json",
+      "frequency_rank": 53
+    },
+    {
+      "char": "多",
+      "pinyin": "duō",
+      "file": "多_v5.json",
+      "frequency_rank": 61
+    },
+    {
+      "char": "知",
+      "pinyin": "zhī",
+      "file": "知_v5.json",
+      "frequency_rank": 123
+    },
+    {
+      "char": "高",
+      "pinyin": "gāo",
+      "file": "高_v5.json",
+      "frequency_rank": 134
+    },
+    {
+      "char": "新",
+      "pinyin": "xīn",
+      "file": "新_v5.json",
+      "frequency_rank": 161
+    },
+    {
+      "char": "话",
+      "pinyin": "huà",
+      "file": "话_v5.json",
+      "frequency_rank": 170
+    },
+    {
+      "char": "声",
+      "pinyin": "shēng",
+      "file": "声_v5.json",
+      "frequency_rank": 195
+    },
+    {
+      "char": "真",
+      "pinyin": "zhēn",
+      "file": "真_v5.json",
+      "frequency_rank": 204
+    },
+    {
+      "char": "处",
+      "pinyin": "chǔ, chù",
+      "file": "处_v5.json",
+      "frequency_rank": 206
+    },
+    {
+      "char": "认",
+      "pinyin": "rèn",
+      "file": "认_v5.json",
+      "frequency_rank": 213
+    },
+    {
+      "char": "亲",
+      "pinyin": "qīn",
+      "file": "亲_v5.json",
+      "frequency_rank": 362
+    },
+    {
+      "char": "花",
+      "pinyin": "huā",
+      "file": "花_v5.json",
+      "frequency_rank": 410
+    },
     {
       "char": "吃",
       "pinyin": "chī",
       "file": "吃_v5.json",
-      "frequency_rank": 120
+      "frequency_rank": 475
     },
     {
-      "char": "脸",
-      "pinyin": "liǎn",
-      "file": "脸_v5.json",
-      "frequency_rank": 120
+      "char": "语",
+      "pinyin": "yǔ",
+      "file": "语_v5.json",
+      "frequency_rank": 493
     },
     {
       "char": "红",
@@ -21,22 +117,106 @@
       "frequency_rank": 502
     },
     {
+      "char": "古",
+      "pinyin": "gǔ",
+      "file": "古_v5.json",
+      "frequency_rank": 509
+    },
+    {
+      "char": "节",
+      "pinyin": "jié",
+      "file": "节_v5.json",
+      "frequency_rank": 514
+    },
+    {
+      "char": "母",
+      "pinyin": "mǔ",
+      "file": "母_v5.json",
+      "frequency_rank": 565
+    },
+    {
+      "char": "故",
+      "pinyin": "gù",
+      "file": "故_v5.json",
+      "frequency_rank": 572
+    },
+    {
+      "char": "父",
+      "pinyin": "fù",
+      "file": "父_v5.json",
+      "frequency_rank": 589
+    },
+    {
+      "char": "友",
+      "pinyin": "yǒu",
+      "file": "友_v5.json",
+      "frequency_rank": 594
+    },
+    {
+      "char": "脸",
+      "pinyin": "liǎn",
+      "file": "脸_v5.json",
+      "frequency_rank": 615
+    },
+    {
+      "char": "岁",
+      "pinyin": "suì",
+      "file": "岁_v5.json",
+      "frequency_rank": 772
+    },
+    {
+      "char": "草",
+      "pinyin": "cǎo",
+      "file": "草_v5.json",
+      "frequency_rank": 789
+    },
+    {
+      "char": "忙",
+      "pinyin": "máng",
+      "file": "忙_v5.json",
+      "frequency_rank": 827
+    },
+    {
+      "char": "朋",
+      "pinyin": "péng",
+      "file": "朋_v5.json",
+      "frequency_rank": 882
+    },
+    {
+      "char": "春",
+      "pinyin": "chūn",
+      "file": "春_v5.json",
+      "frequency_rank": 921
+    },
+    {
+      "char": "爷",
+      "pinyin": "yé",
+      "file": "爷_v5.json",
+      "frequency_rank": 1007
+    },
+    {
       "char": "绿",
       "pinyin": "lǜ",
       "file": "lv_v5.json",
       "frequency_rank": 1088
     },
     {
-      "char": "故",
-      "pinyin": "gù",
-      "file": "故_v5.json",
-      "frequency_rank": 0
+      "char": "洗",
+      "pinyin": "xǐ",
+      "file": "洗_v5.json",
+      "frequency_rank": 1247
+    },
+    {
+      "char": "扫",
+      "pinyin": "sǎo",
+      "file": "扫_v5.json",
+      "frequency_rank": 1435
     },
     {
       "char": "填",
       "pinyin": "tián",
       "file": "填_v5.json",
-      "frequency_rank": 0
+      "frequency_rank": 1970
     }
   ]
 }

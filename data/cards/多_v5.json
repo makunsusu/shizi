@@ -1,0 +1,146 @@
+{
+  "char": "多",
+  "pinyin": "duō",
+  "stroke_count": 6,
+  "character_type": "会意字",
+  "radical": "夕",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 61,
+  "core_origin": "两个“夕”重叠，表示重复、众多。",
+  "original_meaning": "重复、数量大",
+  "meaning_shift_summary": "从“重复”引申为“数量大”，再引申为“超出一般”。",
+  "child_story": "很久以前，古人用两个“夕”字叠在一起表示“多”。你想，一个傍晚（夕）已经很美了，两个傍晚（夕）叠在一起，就有好多好多晚霞，数也数不清。所以“多”就是数量很大、重复出现的意思。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商代",
+      "description": "像两个“夕”上下重叠，表示重复、众多。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦代",
+      "description": "字形规整，两个“夕”上下排列。"
+    },
+    {
+      "stage": "楷书",
+      "era": "现代",
+      "description": "两个“夕”上下结构，写法简洁。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "数量大",
+      "nodes": [
+        "两个夕重叠",
+        "重复",
+        "数量多",
+        "很多"
+      ]
+    },
+    {
+      "label": "超出一般",
+      "nodes": [
+        "多",
+        "多余",
+        "过多",
+        "多余的东西"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "多少",
+        "gloss": "询问数量或程度"
+      },
+      {
+        "word": "很多",
+        "gloss": "数量非常大"
+      },
+      {
+        "word": "多才多艺",
+        "gloss": "具有多种才能和技艺"
+      }
+    ],
+    "radical_family": {
+      "radical": "夕",
+      "meaning_hint": "傍晚、夜晚",
+      "examples": [
+        "夕",
+        "外",
+        "名"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "多",
+      "sound_hint": "读作 duō",
+      "examples": [
+        "哆",
+        "侈",
+        "移"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "夕",
+        "relation": "字源基础",
+        "note": "两个夕组成多，夕表示傍晚。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "夕",
+        "difference": "多由两个夕组成，夕是单个傍晚。"
+      },
+      {
+        "char": "侈",
+        "difference": "侈是形声字，从人多声，意思是浪费。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "多",
+    "words": [
+      "多少",
+      "很多",
+      "多才多艺"
+    ],
+    "sentences": [
+      "你家里有多少本书？",
+      "公园里有很多花。",
+      "她多才多艺，会唱歌也会跳舞。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "多",
+    "word": "很多",
+    "sentence": "公园里有很多花。",
+    "free_speak_prompt": "你最喜欢什么颜色？为什么？"
+  },
+  "interaction_prompts": [
+    "和孩子一起数一数家里有多少个椅子，边数边说“一个、两个……很多个”。",
+    "让孩子用“多”和“少”造句，比如“我的玩具多，你的玩具少”。",
+    "画两个“夕”叠在一起，让孩子猜是什么字。"
+  ],
+  "parent_script": [
+    "第一步：指着“多”字，告诉孩子它由两个“夕”组成，表示重复、数量大。",
+    "第二步：和孩子一起读词语“多少”“很多”，并造句。",
+    "第三步：让孩子在房间里找“多”的东西，比如“很多书”“很多积木”。",
+    "第四步：鼓励孩子用“多”编一个小故事，比如“小兔子有很多胡萝卜”。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "多，重也。从重夕。夕者，相绎也，故为多。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童汉字学习指南",
+      "author": "李老师",
+      "note": "通过字源故事和亲子互动，帮助儿童理解汉字。"
+    }
+  ]
+}

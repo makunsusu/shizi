@@ -1,0 +1,126 @@
+{
+  "char": "们",
+  "pinyin": "men",
+  "stroke_count": 5,
+  "character_type": "形声字",
+  "radical": "亻",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 13,
+  "core_origin": "们是后起字，由“亻”（人）和“门”（声旁）组成，表示人的复数。",
+  "original_meaning": "表示人的复数，如“我们”“他们”。",
+  "meaning_shift_summary": "从表示人的复数，扩展到可指代有生命或无生命事物的复数，如“它们”。",
+  "child_story": "“们”字左边是单人旁，代表一个人；右边是“门”，表示读音。想象一扇门打开，里面走出好多人，所以“们”就是表示很多人的意思。比如“我们”就是我和很多人，“你们”就是你和你身边的人。",
+  "glyph_stages": [
+    {
+      "stage": "现代字形",
+      "era": "现代",
+      "description": "左边单人旁，右边“门”，形声结构。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "从单数到复数",
+      "nodes": [
+        "人（一个人）",
+        "们（很多人）",
+        "我们（包括自己的一群人）"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "我们",
+        "gloss": "包括自己在内的一群人"
+      },
+      {
+        "word": "你们",
+        "gloss": "指对方一群人"
+      },
+      {
+        "word": "他们",
+        "gloss": "指第三方一群人"
+      },
+      {
+        "word": "人们",
+        "gloss": "泛指许多人"
+      }
+    ],
+    "radical_family": {
+      "radical": "亻",
+      "meaning_hint": "表示与人有关",
+      "examples": [
+        "你",
+        "他",
+        "们",
+        "住"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "门",
+      "sound_hint": "读作 men，与“门”音近",
+      "examples": [
+        "们",
+        "扪"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "门",
+        "relation": "声旁",
+        "note": "提供读音，字形像两扇门"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "门",
+        "difference": "“门”是房屋入口，读 mén；“们”是复数后缀，读 men，轻声"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "们",
+    "words": [
+      "我们",
+      "你们",
+      "他们"
+    ],
+    "sentences": [
+      "我们一起上学。",
+      "你们在做什么？",
+      "他们去公园了。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "们",
+    "word": "我们",
+    "sentence": "我们一起去踢球吧。",
+    "free_speak_prompt": "你和你的好朋友一起玩，你会说“我们”做什么呢？"
+  },
+  "interaction_prompts": [
+    "指指自己，说“我”；再指指自己和家人，说“我们”。",
+    "问孩子：“你和同学在一起时，说‘我’还是‘我们’？”",
+    "一起找找绘本里带“们”的字，读出来。"
+  ],
+  "parent_script": [
+    "指着“们”字，告诉孩子左边单人旁代表人，右边“门”是读音。",
+    "和孩子一起说“我”和“我们”，体会单数和复数的不同。",
+    "用“我们”“你们”“他们”各说一句话，让孩子跟读。",
+    "鼓励孩子在日常对话中使用“们”，比如“我们吃饭了”。"
+  ],
+  "citations": [
+    {
+      "type": "字源",
+      "title": "汉字源流字典",
+      "author": "谷衍奎",
+      "note": "们为后起字，形声，从人，门声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童识字心理学",
+      "author": "艾伟",
+      "note": "强调在语境中识字，通过词句理解字义。"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "char": "真",
+  "pinyin": "zhēn",
+  "stroke_count": 10,
+  "character_type": "会意字",
+  "radical": "目",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 204,
+  "core_origin": "从匕（变化）从目（眼睛）从乚（隐藏），会意变化后隐藏真相。",
+  "original_meaning": "仙人变形升天，引申为真实、本原。",
+  "meaning_shift_summary": "本义指仙人变形升天，后引申为真实、确实、本原。",
+  "child_story": "很久以前，人们相信仙人能变化身形飞上天空。他们用“真”字来表示这种神奇的变化：上面像一个人变了形，下面有一双眼睛，好像仙人飞走时留下的真实身影。后来，“真”字就用来形容不虚假的东西，比如“真的”、“真实”。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "从匕从目从乚，匕表示变化，目表示眼睛，乚表示隐藏。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "字形演变为“真”，上部为“匕”的变形，下部为“目”和“乚”的变形。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "真实不假",
+      "nodes": [
+        "仙人变形升天",
+        "真实的本原",
+        "不虚假",
+        "真诚"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "真实",
+        "gloss": "跟事实相符，不假"
+      },
+      {
+        "word": "认真",
+        "gloss": "不马虎，专心"
+      },
+      {
+        "word": "真正",
+        "gloss": "确实，的确"
+      },
+      {
+        "word": "天真",
+        "gloss": "单纯，不做作"
+      }
+    ],
+    "radical_family": {
+      "radical": "目",
+      "meaning_hint": "眼睛",
+      "examples": [
+        "眼",
+        "睛",
+        "睡"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "真",
+      "sound_hint": "zhēn",
+      "examples": [
+        "镇",
+        "填",
+        "慎"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "直",
+        "relation": "字形相关",
+        "note": "真和直都有‘目’，表示看，真强调真实，直强调不弯曲。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "直",
+        "difference": "直下面没有‘八’，真下面有‘八’。"
+      },
+      {
+        "char": "具",
+        "difference": "具上面是‘且’，真上面是‘匕’。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "真",
+    "words": [
+      "真实",
+      "认真",
+      "真正"
+    ],
+    "sentences": [
+      "这是真的吗？",
+      "我认真写作业。",
+      "他真是个好朋友。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "真",
+    "word": "真实",
+    "sentence": "这个故事是真实的。",
+    "free_speak_prompt": "你做过什么真实的事情？"
+  },
+  "interaction_prompts": [
+    "和孩子一起找找家里哪些东西是‘真’的，比如真花、真水果。",
+    "让孩子说说‘真’字像什么，然后一起画一画。",
+    "玩‘真假猜猜看’：你说一句话，孩子判断是真的还是假的。"
+  ],
+  "parent_script": [
+    "先指着‘真’字，告诉孩子这个字和‘真实’有关。",
+    "讲字源故事：仙人变形升天，留下真实的身影。",
+    "一起读词语和句子，让孩子指读。",
+    "玩一个‘真假’小游戏，加深理解。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "真，仙人变形而登天也。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "汉字树",
+      "author": "廖文豪",
+      "note": "从字源理解汉字，帮助儿童建立意义网络。"
+    }
+  ]
+}

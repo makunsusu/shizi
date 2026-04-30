@@ -1,0 +1,130 @@
+{
+  "char": "你",
+  "pinyin": "nǐ",
+  "stroke_count": 7,
+  "character_type": "形声字",
+  "radical": "亻",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 32,
+  "core_origin": "从人，尔声。本义指第二人称，即对方。",
+  "original_meaning": "第二人称代词，指称对方。",
+  "meaning_shift_summary": "从古代指称对方，沿用至今，是现代汉语中最常用的第二人称代词。",
+  "child_story": "很久以前，人们想称呼对方的时候，就用一个特别的字。这个字左边有个‘单人旁’，代表一个人；右边是‘尔’，表示声音。合起来就是‘你’，专门用来叫对方。比如，你对好朋友说：‘你真好！’这个‘你’就是在叫对方。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "小篆中‘你’字左边是‘人’，右边是‘尔’，字形与现在相近。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "楷书‘你’字左边‘亻’，右边‘尔’，结构稳定。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "指称对方",
+      "nodes": [
+        "你",
+        "你们",
+        "你的"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "你好",
+        "gloss": "打招呼的礼貌用语"
+      },
+      {
+        "word": "你们",
+        "gloss": "指两个以上的人"
+      },
+      {
+        "word": "你的",
+        "gloss": "表示属于你"
+      }
+    ],
+    "radical_family": {
+      "radical": "亻",
+      "meaning_hint": "与人有关",
+      "examples": [
+        "他",
+        "们",
+        "住"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "尔",
+      "sound_hint": "提示读音 nǐ",
+      "examples": [
+        "你",
+        "您"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "尔",
+        "relation": "声旁",
+        "note": "‘你’的右边‘尔’提示读音，古时‘尔’也有‘你’的意思。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "他",
+        "difference": "‘你’指对方，‘他’指第三方。"
+      },
+      {
+        "char": "您",
+        "difference": "‘您’是‘你’的敬称，表示尊敬。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "你",
+    "words": [
+      "你好",
+      "你们",
+      "你的"
+    ],
+    "sentences": [
+      "你好，我叫小明。",
+      "你们一起去玩吧。",
+      "这是你的书包吗？"
+    ]
+  },
+  "recording_ladder": {
+    "char": "你",
+    "word": "你好",
+    "sentence": "你好，我叫小明。",
+    "free_speak_prompt": "早上见到同学，你会怎么打招呼？用上‘你’字说一说。"
+  },
+  "interaction_prompts": [
+    "和孩子互相说‘你好’，并击掌。",
+    "指着家人问：‘他是谁？’让孩子用‘你’回答。",
+    "玩‘你问我答’：家长问‘你叫什么？’孩子回答。"
+  ],
+  "parent_script": [
+    "1. 指着‘你’字，告诉孩子左边是‘单人旁’，右边是‘尔’，合起来就是‘你’。",
+    "2. 和孩子一起读词语‘你好’‘你们’‘你的’，并做动作。",
+    "3. 用‘你’字问孩子问题，比如‘你几岁？’让孩子回答。",
+    "4. 鼓励孩子用‘你’字和家人打招呼，比如‘你好，妈妈！’"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "‘你’字在《说文》中未收录，但‘尔’字有记载，后世从‘人’‘尔’声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "汉字树",
+      "author": "廖文豪",
+      "note": "通过形旁和声旁理解汉字，适合儿童识字。"
+    }
+  ]
+}

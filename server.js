@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const root = __dirname;
 const port = Number(process.env.PORT || 8765);
 const host = process.env.HOST || "0.0.0.0";
+const cardsDir = path.join(root, "data", "cards");
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -86,14 +87,9 @@ async function handleHanziCard(request, response) {
 
   const apiMode = config.apiMode || (config.baseUrl.includes("api.openai.com") ? "responses" : "chat_completions");
   log(`使用模型：${config.model}，接口模式：${apiMode}`);
-  const data = apiMode === "responses"
-    ? await requestByResponsesAPI(config, char)
-    : await requestByChatCompletionsAPI(config, char);
-
-  log(`AI 已返回：${char}，开始校验字段`);
-  validateGeneratedData(data, char);
+  const data = await requestValidatedHanziCard(config, char, apiMode);
   const savedItem = saveCardData(data);
-  log(`保存完成：data/${savedItem.file}，字表已更新`);
+  log(`保存完成：data/cards/${savedItem.file}，字表已更新`);
   sendJSON(response, 200, { data, item: savedItem });
 }
 
@@ -133,29 +129,65 @@ function readTTSConfig() {
   return JSON.parse(fs.readFileSync(configPath, "utf-8"));
 }
 
-function getAudioHash(text, speaker, params) {
-  const hashInput = [text, speaker, params.format, String(params.sample_rate), String(params.speech_rate)].join("|");
+function getAudioHash(text, speaker, params, textType = "plain") {
+  const hashInput = [textType, text, speaker, params.format, String(params.sample_rate), String(params.speech_rate)].join("|");
   return crypto.createHash("sha256").update(hashInput).digest("hex").slice(0, 16);
+}
+
+function normalizeAudioToken(value, fallback = "audio") {
+  const cleaned = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_")
+    .replace(/[^\p{Script=Han}a-z0-9_-]+/gu, "")
+    .replace(/^_+|_+$/g, "");
+  return cleaned || fallback;
+}
+
+function buildAudioFileName(hash, params, meta = {}) {
+  const format = params.format || "mp3";
+  const audioKey = normalizeAudioToken(meta.audioKey, "audio");
+  const audioSlug = normalizeAudioToken(meta.audioSlug, "audio");
+  return `${audioSlug}_${audioKey}_${hash}.${format}`;
+}
+
+function findExistingAudioFileByHash(hash, format) {
+  const audioDir = path.join(root, "data", "audio");
+  const exactLegacy = `${hash}.${format}`;
+  const exactLegacyPath = path.join(audioDir, exactLegacy);
+  if (fs.existsSync(exactLegacyPath)) {
+    return exactLegacy;
+  }
+
+  const suffix = `_${hash}.${format}`;
+  for (const file of fs.readdirSync(audioDir)) {
+    if (file.endsWith(suffix)) {
+      return file;
+    }
+  }
+  return null;
 }
 
 async function handleTTS(request, response) {
   const body = await readBody(request);
-  const { text, speaker: reqSpeaker } = JSON.parse(body || "{}");
+  const { text, speaker: reqSpeaker, audioKey, audioSlug, textType, ssmlText } = JSON.parse(body || "{}");
   if (!text || typeof text !== "string") {
     sendJSON(response, 400, { success: false, error: "缺少 text 参数" });
     return;
   }
 
   const config = readTTSConfig();
-  if (!config || !config.appId || !config.accessKey) {
-    sendJSON(response, 200, { success: false, error: "TTS 配置缺失", fallback: true });
+  if (!config || !config.accessKey) {
+    sendJSON(response, 200, { success: false, error: "TTS 配置缺失：请配置 accessKey", fallback: true });
     return;
   }
 
   const speaker = reqSpeaker || config.speaker || "zh_female_xiaoyi_meitu";
   const audioParams = config.audioParams || { format: "mp3", sample_rate: 24000, speech_rate: 0 };
-  const hash = getAudioHash(text, speaker, audioParams);
-  const audioFile = `${hash}.${audioParams.format || "mp3"}`;
+  const normalizedTextType = textType === "ssml" && ssmlText ? "ssml" : "plain";
+  const synthesisText = normalizedTextType === "ssml" ? ssmlText : text;
+  const hash = getAudioHash(synthesisText, speaker, audioParams, normalizedTextType);
+  const audioFile = buildAudioFileName(hash, audioParams, { audioKey, audioSlug });
   const audioPath = path.join(root, "data", "audio", audioFile);
 
   if (fs.existsSync(audioPath)) {
@@ -163,25 +195,21 @@ async function handleTTS(request, response) {
     return;
   }
 
+  const existingFile = findExistingAudioFileByHash(hash, audioParams.format || "mp3");
+  if (existingFile) {
+    const existingPath = path.join(root, "data", "audio", existingFile);
+    if (existingPath !== audioPath) {
+      fs.renameSync(existingPath, audioPath);
+      log(`TTS 缓存已迁移：data/audio/${existingFile} -> data/audio/${audioFile}`);
+    }
+    sendJSON(response, 200, { success: true, audioUrl: `/data/audio/${audioFile}`, cached: true });
+    return;
+  }
+
   try {
-    log(`TTS 提交任务：${text.slice(0, 30)}...`);
-    const submitRes = await submitTTSTask(config, text, speaker, audioParams);
-    if (submitRes.code !== 20000000) {
-      throw new Error(submitRes.message || `TTS 提交失败（code ${submitRes.code}）`);
-    }
-    const taskId = submitRes.data.task_id;
-
-    const queryRes = await pollTTSTask(config, taskId);
-    if (queryRes.code !== 20000000 || queryRes.data.task_status !== 2) {
-      throw new Error(queryRes.message || `TTS 合成失败（status ${queryRes.data?.task_status}）`);
-    }
-
-    const audioUrl = queryRes.data.audio_url;
-    if (!audioUrl) {
-      throw new Error("TTS 响应缺少音频地址");
-    }
-
-    await downloadAudio(audioUrl, audioPath);
+    log(`TTS 合成：${text.slice(0, 30)}...`);
+    const audioBuffer = await requestTTSAudio(config, synthesisText, speaker, audioParams, normalizedTextType);
+    fs.writeFileSync(audioPath, audioBuffer);
     log(`TTS 音频已保存：data/audio/${audioFile}`);
     sendJSON(response, 200, { success: true, audioUrl: `/data/audio/${audioFile}`, cached: false });
   } catch (error) {
@@ -190,13 +218,23 @@ async function handleTTS(request, response) {
   }
 }
 
-function submitTTSTask(config, text, speaker, audioParams) {
+function buildTTSHeaders(config, body, requestId) {
+  const headers = {
+    "Content-Type": "application/json",
+    "Content-Length": Buffer.byteLength(body),
+    "Connection": "keep-alive",
+    "X-Api-Key": config.accessKey,
+    "X-Api-Resource-Id": config.resourceId || "seed-tts-2.0",
+    "X-Api-Request-Id": requestId
+  };
+  return headers;
+}
+
+function requestTTSAudio(config, text, speaker, audioParams, textType = "plain") {
   const payload = JSON.stringify({
     user: { uid: "hanzi-card-user" },
-    unique_id: `tts-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    namespace: config.namespace || "BidirectionalTTS",
     req_params: {
-      text,
+      ssml: text,
       speaker,
       audio_params: {
         format: audioParams.format || "mp3",
@@ -205,125 +243,72 @@ function submitTTSTask(config, text, speaker, audioParams) {
       }
     }
   });
+  log(payload)
+  const requestId = `req-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
   return new Promise((resolve, reject) => {
     const req = https.request({
       method: "POST",
       hostname: "openspeech.bytedance.com",
       path: "/api/v3/tts/unidirectional",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(payload),
-        "X-Api-Key": config.accessKey,
-        "X-Api-Resource-Id": config.resourceId || "seed-tts-2.0",
-        "X-Api-Request-Id": `req-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-      }
+      headers: buildTTSHeaders(config, payload, requestId)
     }, (res) => {
       let raw = "";
       res.setEncoding("utf8");
       res.on("data", (chunk) => raw += chunk);
       res.on("end", () => {
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          reject(new Error(`TTS 请求失败（HTTP ${res.statusCode}）：${raw || "无响应内容"}`));
+          return;
+        }
         try {
-          resolve(raw ? JSON.parse(raw) : {});
-        } catch {
-          resolve({ code: -1, message: raw });
+          const audioBuffer = parseTTSAudioStream(raw);
+          resolve(audioBuffer);
+        } catch (error) {
+          reject(error);
         }
       });
     });
-    req.on("error", (error) => reject(new Error(`TTS 提交请求失败：${error.message}`)));
+    req.on("error", (error) => reject(new Error(`TTS 请求失败：${error.message}`)));
     req.write(payload);
     req.end();
   });
 }
 
-function queryTTSTask(config, taskId) {
-  const payload = JSON.stringify({ task_id: taskId });
-  return new Promise((resolve, reject) => {
-    const req = https.request({
-      method: "POST",
-      hostname: "openspeech.bytedance.com",
-      path: "/api/v3/tts/query",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(payload),
-        "X-Api-Key": config.accessKey,
-        "X-Api-Resource-Id": config.resourceId || "seed-tts-2.0",
-        "X-Api-Request-Id": `req-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-      }
-    }, (res) => {
-      let raw = "";
-      res.setEncoding("utf8");
-      res.on("data", (chunk) => raw += chunk);
-      res.on("end", () => {
-        try {
-          resolve(raw ? JSON.parse(raw) : {});
-        } catch {
-          resolve({ code: -1, message: raw });
-        }
-      });
-    });
-    req.on("error", (error) => reject(new Error(`TTS 查询请求失败：${error.message}`)));
-    req.write(payload);
-    req.end();
-  });
-}
-
-async function pollTTSTask(config, taskId) {
-  const maxAttempts = 30;
-  const interval = 2000;
-  for (let i = 0; i < maxAttempts; i++) {
-    const res = await queryTTSTask(config, taskId);
-    if (res.code !== 20000000) {
-      throw new Error(res.message || `TTS 查询失败（code ${res.code}）`);
+function parseTTSAudioStream(raw) {
+  const chunks = [];
+  const lines = raw.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  for (const line of lines) {
+    const jsonLine = line.startsWith("data:") ? line.slice(5).trim() : line;
+    if (!jsonLine || jsonLine === "[DONE]") continue;
+    let item;
+    try {
+      item = JSON.parse(jsonLine);
+    } catch {
+      continue;
     }
-    const status = res.data?.task_status;
-    if (status === 2) return res;
-    if (status === 3) throw new Error("TTS 合成任务失败");
-    await new Promise((r) => setTimeout(r, interval));
+    if (item.code && item.code !== 0 && item.code !== 20000000) {
+      throw new Error(item.message || `TTS 合成失败（code ${item.code}）`);
+    }
+    const audio = typeof item.data === "string" ? item.data : item.data?.audio;
+    if (audio) {
+      chunks.push(Buffer.from(audio, "base64"));
+    }
   }
-  throw new Error("TTS 合成超时，请稍后重试");
-}
-
-function downloadAudio(url, filePath) {
-  return new Promise((resolve, reject) => {
-    const target = new URL(url);
-    const req = https.get({
-      hostname: target.hostname,
-      path: `${target.pathname}${target.search}`,
-      port: target.port || 443
-    }, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        downloadAudio(res.headers.location, filePath).then(resolve).catch(reject);
-        return;
-      }
-      if (res.statusCode < 200 || res.statusCode >= 300) {
-        reject(new Error(`下载音频失败（HTTP ${res.statusCode}）`));
-        return;
-      }
-      const file = fs.createWriteStream(filePath);
-      res.pipe(file);
-      file.on("finish", () => {
-        file.close();
-        resolve();
-      });
-      file.on("error", (error) => {
-        fs.unlink(filePath, () => {});
-        reject(error);
-      });
-    });
-    req.on("error", (error) => reject(new Error(`下载音频请求失败：${error.message}`)));
-  });
+  if (chunks.length === 0) {
+    throw new Error(raw || "TTS 响应中没有音频数据");
+  }
+  return Buffer.concat(chunks);
 }
 
 function syncRegistryWithDataFiles() {
-  const dataDir = path.join(root, "data");
-  fs.mkdirSync(dataDir, { recursive: true });
+  fs.mkdirSync(cardsDir, { recursive: true });
   const registry = readRegistry();
   const byChar = new Map((registry.items || []).map((item) => [item.char, item]));
-  for (const file of fs.readdirSync(dataDir)) {
-    if (!file.endsWith(".json") || file === "characters.json") continue;
+  for (const file of fs.readdirSync(cardsDir)) {
+    if (!file.endsWith(".json")) continue;
     try {
-      const data = JSON.parse(fs.readFileSync(path.join(dataDir, file), "utf-8"));
+      const data = JSON.parse(fs.readFileSync(path.join(cardsDir, file), "utf-8"));
       if (!data.char) continue;
       byChar.set(data.char, {
         char: data.char,
@@ -364,10 +349,9 @@ function writeRegistry(items) {
 }
 
 function saveCardData(data) {
-  const dataDir = path.join(root, "data");
-  fs.mkdirSync(dataDir, { recursive: true });
+  fs.mkdirSync(cardsDir, { recursive: true });
   const file = `${data.char}_v5.json`;
-  const filePath = path.join(dataDir, file);
+  const filePath = path.join(cardsDir, file);
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
 
   const registry = readRegistry();
@@ -404,9 +388,10 @@ async function requestByResponsesAPI(config, char) {
     model: config.model,
     temperature: config.temperature ?? 0.4,
     instructions: buildInstructions(config),
-    input: `请为汉字“${char}”生成一份完整 JSON。只输出 JSON，不要 Markdown。`,
+    input: buildGenerationPrompt(char),
     text: { format: { type: "json_object" } }
   };
+  applyProviderOptions(config, payload);
   const result = await postJSON(`${config.baseUrl.replace(/\/$/, "")}/responses`, config.apiKey, payload, "Responses API");
   const text = result.output_text || extractOutputText(result);
   if (!text) throw new Error("接口没有返回可解析文本");
@@ -421,25 +406,52 @@ async function requestByChatCompletionsAPI(config, char) {
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: buildInstructions(config) },
-      { role: "user", content: `请为汉字“${char}”生成一份完整 JSON。只输出 JSON，不要 Markdown。` }
+      { role: "user", content: buildGenerationPrompt(char) }
     ]
   };
+  applyProviderOptions(config, payload);
   const result = await postJSON(`${config.baseUrl.replace(/\/$/, "")}/chat/completions`, config.apiKey, payload, "Chat Completions API");
   const text = result.choices?.[0]?.message?.content;
   if (!text) throw new Error("接口没有返回可解析文本");
   return parseJSONText(text);
 }
 
+async function requestValidatedHanziCard(config, char, apiMode) {
+  const requestCard = apiMode === "responses"
+    ? () => requestByResponsesAPI(config, char)
+    : () => requestByChatCompletionsAPI(config, char);
+
+  let lastError = null;
+  const maxAttempts = 2;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const startedAt = Date.now();
+    try {
+      const data = await requestCard();
+      log(`AI 已返回：${char}，开始校验字段，第 ${attempt} 次耗时 ${Date.now() - startedAt}ms`);
+      validateGeneratedData(data, char);
+      return data;
+    } catch (error) {
+      lastError = error;
+      log(`生成失败：${char}，第 ${attempt} 次，原因：${error.message}`);
+      if (attempt >= maxAttempts) break;
+      log(`准备重试：${char}，第 ${attempt + 1} 次`);
+    }
+  }
+  throw lastError || new Error("生成失败");
+}
+
 function postJSON(url, apiKey, payload, apiName) {
   return new Promise((resolve, reject) => {
     const target = new URL(url);
     const body = JSON.stringify(payload);
-    log(`${apiName} 发送请求：${target.hostname}${target.pathname}`);
+    const timeoutMs = Number(payload.timeout_ms || payload.timeoutMs || 0) || 45000;
+    log(`${apiName} 发送请求：${target.hostname}${target.pathname}，超时 ${timeoutMs}ms`);
     const req = https.request({
       method: "POST",
       hostname: target.hostname,
       path: `${target.pathname}${target.search}`,
       port: target.port || 443,
+      timeout: timeoutMs,
       headers: {
         "Content-Type": "application/json",
         "Content-Length": Buffer.byteLength(body),
@@ -465,10 +477,29 @@ function postJSON(url, apiKey, payload, apiName) {
         resolve(data);
       });
     });
+    req.on("timeout", () => {
+      req.destroy(new Error(`${apiName} 请求超时（>${timeoutMs}ms）`));
+    });
     req.on("error", (error) => reject(new Error(`${apiName} 请求失败：${error.message}`)));
     req.write(body);
     req.end();
   });
+}
+
+function buildGenerationPrompt(char) {
+  return [
+    `请为汉字“${char}”生成一份完整 JSON。`,
+    `输出中的 "char" 字段必须严格等于“${char}”。`,
+    `所有拼音、词语、句子、字源说明都必须围绕“${char}”。`,
+    "只输出 JSON，不要 Markdown，不要解释。"
+  ].join("");
+}
+
+function applyProviderOptions(config, payload) {
+  if (String(config.baseUrl || "").includes("api.deepseek.com")) {
+    payload.max_tokens = Number(config.maxTokens || 3200);
+    payload.thinking = { type: "disabled" };
+  }
 }
 
 function buildInstructions(config) {

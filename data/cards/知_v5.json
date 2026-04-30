@@ -1,0 +1,136 @@
+{
+  "char": "知",
+  "pinyin": "zhī",
+  "stroke_count": 8,
+  "character_type": "会意字",
+  "radical": "矢",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 123,
+  "core_origin": "从口从矢，表示说话像射箭一样准确，引申为知道、了解。",
+  "original_meaning": "知道、了解",
+  "meaning_shift_summary": "本义是知道，引申为知识、智慧。",
+  "child_story": "很久以前，人们用弓箭射靶子，射中靶心就是“知”。后来，“知”变成了嘴巴说出的话像箭一样准确，就是知道的意思。所以，“知”字左边是“矢”（箭），右边是“口”（嘴巴），合起来就是“知道”。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商",
+      "description": "从口从矢，表示说话像射箭一样准确。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "字形规整，左矢右口。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "左矢右口，结构稳定。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "知道 → 知识",
+      "nodes": [
+        "知道",
+        "了解",
+        "知识",
+        "智慧"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "知道",
+        "gloss": "对事物有了解"
+      },
+      {
+        "word": "知识",
+        "gloss": "知道的东西"
+      },
+      {
+        "word": "通知",
+        "gloss": "告诉别人知道"
+      },
+      {
+        "word": "知了",
+        "gloss": "蝉的叫声"
+      }
+    ],
+    "radical_family": {
+      "radical": "矢",
+      "meaning_hint": "与箭有关",
+      "examples": [
+        "矢",
+        "知",
+        "矣"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "矢",
+      "sound_hint": "shǐ",
+      "examples": [
+        "知",
+        "智"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "智",
+        "relation": "从知从日，智慧",
+        "note": "知加日表示智慧如日光"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "和",
+        "difference": "左边是禾，右边是口，表示和谐"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "知",
+    "words": [
+      "知道",
+      "知识",
+      "通知"
+    ],
+    "sentences": [
+      "我知道答案。",
+      "我们要学知识。",
+      "老师通知我们明天去春游。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "知",
+    "word": "知道",
+    "sentence": "我知道怎么折纸飞机。",
+    "free_speak_prompt": "你知道什么有趣的事情？说给爸爸妈妈听。"
+  },
+  "interaction_prompts": [
+    "和孩子一起用身体摆出“知”字：左手伸直当箭（矢），右手握拳当嘴巴（口）。",
+    "玩“我知道”游戏：轮流说“我知道……”，看谁说得多。",
+    "找一找家里有哪些东西和“知”有关？比如书本上的知识、闹钟的知了叫声。"
+  ],
+  "parent_script": [
+    "第一步：指着“知”字，告诉孩子左边像一支箭，右边是嘴巴，说话像射箭一样准就是知道。",
+    "第二步：一起读词语“知道”“知识”，用句子“我知道怎么搭积木”来巩固。",
+    "第三步：玩“我知道”接龙，每人说一个自己知道的事情。",
+    "第四步：引导孩子用“知”组词，比如“通知”“知了”，并简单解释。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "知，从口从矢。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童汉字学习指南",
+      "author": "李山川",
+      "note": "字源识字法强调通过字形理解字义。"
+    }
+  ]
+}

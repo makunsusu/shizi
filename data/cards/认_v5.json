@@ -1,0 +1,130 @@
+{
+  "char": "认",
+  "pinyin": "rèn",
+  "stroke_count": 4,
+  "character_type": "形声字",
+  "radical": "讠",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 213,
+  "core_origin": "从言，从人，人亦声。本义是识别、分辨。",
+  "original_meaning": "识别、分辨",
+  "meaning_shift_summary": "从识别引申为承认、认可。",
+  "child_story": "古时候，人们用语言（言字旁）来问对方是谁，然后根据回答来分辨（人）是不是认识的人。所以“认”字就像在说：“我用说话来分辨你是谁。”",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是言字旁，右边是“人”，表示用言语分辨人。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "左边简化为“讠”，右边仍是“人”。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "识别 → 承认",
+      "nodes": [
+        "认识（识别）",
+        "认错（承认错误）",
+        "认可（同意）"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "认识",
+        "gloss": "知道、了解"
+      },
+      {
+        "word": "认真",
+        "gloss": "用心、不马虎"
+      },
+      {
+        "word": "认错",
+        "gloss": "承认错误"
+      }
+    ],
+    "radical_family": {
+      "radical": "讠",
+      "meaning_hint": "与说话有关",
+      "examples": [
+        "说",
+        "话",
+        "读"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "人",
+      "sound_hint": "rén→rèn，声母相同，韵母变化",
+      "examples": [
+        "认",
+        "仁"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "人",
+        "relation": "声旁兼义",
+        "note": "既是读音提示，也参与意义"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "让",
+        "difference": "右边是“上”，意思是退让"
+      },
+      {
+        "char": "记",
+        "difference": "右边是“己”，意思是记录"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "认",
+    "words": [
+      "认识",
+      "认真",
+      "认错"
+    ],
+    "sentences": [
+      "我认识这个字。",
+      "他做作业很认真。",
+      "小明主动认错了。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "认",
+    "word": "认识",
+    "sentence": "我认识这个字。",
+    "free_speak_prompt": "你认识哪些小朋友？说一个名字。"
+  },
+  "interaction_prompts": [
+    "用手指在空中写“认”字，边写边说笔画。",
+    "和爸妈一起找家里带“认”字的物品或书。",
+    "玩“认人游戏”：爸妈说一个特征，孩子猜是谁。"
+  ],
+  "parent_script": [
+    "先指着“认”字问孩子：这个字哪里像说话？哪里像人？",
+    "讲字源故事：古人用说话来分辨人。",
+    "一起读词句：认识、认真、认错。",
+    "玩一个“认人”游戏：描述一个人，让孩子猜。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "认，从言人声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童汉字学习指南",
+      "author": "教育部",
+      "note": "通过字源和语境帮助儿童识字。"
+    }
+  ]
+}

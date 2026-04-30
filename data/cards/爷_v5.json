@@ -1,0 +1,143 @@
+{
+  "char": "爷",
+  "pinyin": "yé",
+  "stroke_count": 6,
+  "character_type": "会意字",
+  "radical": "父",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 1007,
+  "core_origin": "爷由“父”和“耶”的省形组成，本义指父亲，后引申为祖父或对长辈的尊称。",
+  "original_meaning": "父亲",
+  "meaning_shift_summary": "从父亲引申为祖父，再泛化为对男性长辈的尊称。",
+  "child_story": "很久以前，人们用“爷”来叫自己的爸爸。后来，爸爸的爸爸也被叫做“爷爷”。现在，我们还会用“爷”来尊敬地称呼其他老爷爷，比如“老大爷”。这个字上面是“父”，代表爸爸；下面是“耶”的变形，帮助发音。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "字形为“父”上加“耶”省形，表示父亲。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "写作“爺”，简化后为“爷”，上“父”下“耶”省。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "父亲 → 祖父",
+      "nodes": [
+        "父亲",
+        "祖父",
+        "爷爷"
+      ]
+    },
+    {
+      "label": "祖父 → 尊称",
+      "nodes": [
+        "祖父",
+        "老大爷",
+        "爷们儿"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "爷爷",
+        "gloss": "祖父，爸爸的爸爸。"
+      },
+      {
+        "word": "老爷",
+        "gloss": "旧时对有权势者的称呼，或指外祖父。"
+      },
+      {
+        "word": "大爷",
+        "gloss": "伯父或对年长男子的尊称。"
+      }
+    ],
+    "radical_family": {
+      "radical": "父",
+      "meaning_hint": "与父亲、长辈有关",
+      "examples": [
+        "爸",
+        "爹",
+        "爷"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "耶",
+      "sound_hint": "ye",
+      "examples": [
+        "耶",
+        "爷"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "父",
+        "relation": "部首",
+        "note": "爷的部首，表示父亲。"
+      },
+      {
+        "char": "耶",
+        "relation": "声旁",
+        "note": "爷的声旁，提示读音。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "爸",
+        "difference": "爸指父亲，爷指祖父或尊称。"
+      },
+      {
+        "char": "爹",
+        "difference": "爹指父亲，爷指祖父。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "爷",
+    "words": [
+      "爷爷",
+      "老爷",
+      "大爷"
+    ],
+    "sentences": [
+      "我的爷爷每天去公园散步。",
+      "这位老大爷在树下乘凉。",
+      "爸爸的爸爸是我的爷爷。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "爷",
+    "word": "爷爷",
+    "sentence": "爷爷给我讲故事。",
+    "free_speak_prompt": "你的爷爷长什么样子？他喜欢做什么？"
+  },
+  "interaction_prompts": [
+    "和宝宝一起画一幅“我的爷爷”的画，边画边说说爷爷的特点。",
+    "让宝宝模仿爷爷走路的样子，然后说说爷爷走路有什么特别。",
+    "一起读句子“爷爷给我讲故事”，让宝宝用手指着字读。"
+  ],
+  "parent_script": [
+    "先指着“爷”字，告诉宝宝这个字读yé，上面是“父”，下面是“耶”的变形。",
+    "问宝宝：“爷爷是谁？”引导宝宝说出“爸爸的爸爸”。",
+    "一起读词语“爷爷”、“老爷”、“大爷”，并解释意思。",
+    "让宝宝用“爷爷”说一句话，比如“爷爷爱我”。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "爷，父也。从父，耶声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "字源识字法",
+      "author": "刘翔",
+      "note": "通过字源故事帮助儿童理解汉字。"
+    }
+  ]
+}

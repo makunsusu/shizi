@@ -21,7 +21,10 @@
       <div class="panel">
         <div class="panel-title-row">
           <label for="characterSearch">已有字卡</label>
-          <button id="openAddDialogButton" class="small-button" type="button">新增</button>
+          <div class="panel-actions">
+            <button id="openBatchAudioDialogButton" class="small-button secondary" type="button">批量语音</button>
+            <button id="openAddDialogButton" class="small-button" type="button">新增</button>
+          </div>
         </div>
         <input id="characterSearch" placeholder="搜索汉字、拼音或文件名">
         <div id="characterList" class="character-list" aria-label="已有字卡列表"></div>
@@ -32,7 +35,7 @@
     <main class="card-page" id="cardPage">
       <section class="empty-state">
         <h2>正在准备字卡</h2>
-        <p>如果长时间没有出现内容，请确认正在通过本地服务器打开页面。</p>
+        <p>如果长时间没有出现内容，请确认正在通过本地服务打开页面。</p>
       </section>
     </main>
   </div>
@@ -42,7 +45,17 @@
       <h2 id="confirmTitle">确认新增</h2>
       <div id="addInputGroup" class="dialog-field">
         <label for="newCharInput">新增字卡</label>
-        <input id="newCharInput" maxlength="1" placeholder="输入一个汉字">
+        <textarea id="newCharInput" rows="4" placeholder="输入或粘贴多个汉字，例如：天地人和"></textarea>
+        <p class="hint">支持连续输入、空格或换行分隔，系统会自动提取汉字并批量生成。</p>
+      </div>
+      <div id="audioOptionsGroup" class="dialog-field" hidden>
+        <label>生成内容</label>
+        <div class="checkbox-grid">
+          <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="character" checked> 单字读音</label>
+          <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="story" checked> 字源故事</label>
+          <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="reading" checked> 字词句</label>
+        </div>
+        <p class="hint">留空则为全部已有字卡生成；输入汉字则只生成指定范围。</p>
       </div>
       <p id="confirmMessage"></p>
       <div class="dialog-actions">
@@ -55,8 +68,15 @@
   <div id="loadingOverlay" class="loading-overlay" hidden>
     <div class="loading-box">
       <div class="loading-mark">AI</div>
-      <h2>AI 生成中，请稍后</h2>
-      <p>正在整理字源、字族、词句和亲子互动。</p>
+      <h2 id="loadingTitle">AI 生成中，请稍候</h2>
+      <p id="loadingDescription">正在整理字源、字族、词句和亲子互动。</p>
+      <div class="loading-progress" aria-live="polite">
+        <div class="loading-progress-bar">
+          <div id="loadingProgressFill" class="loading-progress-fill"></div>
+        </div>
+        <p id="loadingProgressText" class="loading-progress-text">等待开始</p>
+        <ul id="loadingProgressList" class="loading-progress-list"></ul>
+      </div>
     </div>
   </div>
 

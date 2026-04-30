@@ -1,0 +1,160 @@
+{
+  "char": "母",
+  "pinyin": "mǔ",
+  "stroke_count": 5,
+  "character_type": "象形",
+  "radical": "毋",
+  "structure": "独体",
+  "age_band": "6-8",
+  "frequency_rank": 565,
+  "core_origin": "象形字，像一位母亲跪坐，双手交叉，胸前有两点表示乳房。",
+  "original_meaning": "母亲，生育并哺乳的人。",
+  "meaning_shift_summary": "从母亲引申为女性长辈、根源、雌性等。",
+  "child_story": "很久很久以前，古人画了一个跪坐的人，胸前有两个点，表示妈妈在喂宝宝吃奶。这个字就是“母”。妈妈不仅给我们生命，还用乳汁喂养我们，所以“母”字里藏着妈妈的爱。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商代",
+      "description": "像一位母亲跪坐，双手交叉，胸前两点表示乳房。"
+    },
+    {
+      "stage": "金文",
+      "era": "西周",
+      "description": "字形更规整，仍保留乳房特征。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦代",
+      "description": "线条化，两点变为两横。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉代以后",
+      "description": "演变为今天的“母”字。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "母亲 → 女性长辈",
+      "nodes": [
+        "母亲",
+        "祖母",
+        "伯母",
+        "舅母"
+      ]
+    },
+    {
+      "label": "母亲 → 根源",
+      "nodes": [
+        "母语",
+        "母校",
+        "母体",
+        "母本"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "母亲",
+        "gloss": "妈妈"
+      },
+      {
+        "word": "母爱",
+        "gloss": "妈妈的爱"
+      },
+      {
+        "word": "母语",
+        "gloss": "从小说的语言"
+      },
+      {
+        "word": "母校",
+        "gloss": "毕业的学校"
+      }
+    ],
+    "radical_family": {
+      "radical": "毋",
+      "meaning_hint": "与母亲相关",
+      "examples": [
+        "母",
+        "每",
+        "毒"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "母",
+      "sound_hint": "读作 mǔ",
+      "examples": [
+        "姆",
+        "拇",
+        "亩"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "每",
+        "relation": "字源亲戚",
+        "note": "从母从屮，本义为母亲戴头饰，引申为每个。"
+      },
+      {
+        "char": "姆",
+        "relation": "形声字",
+        "note": "女加母，指保姆。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "毋",
+        "difference": "少两点，表示不要。"
+      },
+      {
+        "char": "每",
+        "difference": "上面多一撇，表示每个。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "母",
+    "words": [
+      "母亲",
+      "母爱",
+      "母语"
+    ],
+    "sentences": [
+      "我的母亲很爱我。",
+      "母爱像阳光一样温暖。",
+      "汉语是我的母语。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "母",
+    "word": "母亲",
+    "sentence": "我的母亲很爱我。",
+    "free_speak_prompt": "你的妈妈平时是怎么爱你的？说一件小事吧。"
+  },
+  "interaction_prompts": [
+    "一起用手指在空中写“母”字，边写边说笔画。",
+    "让孩子找找家里哪些东西和“母”有关，比如母亲的照片、母语书。",
+    "和孩子一起说几个带“母”的词语，看谁说得多。"
+  ],
+  "parent_script": [
+    "指着“母”字，告诉孩子：这个字像妈妈跪着喂奶的样子。",
+    "让孩子用手比划字形，说说哪里像妈妈。",
+    "一起读词语和句子，让孩子跟读。",
+    "问孩子：妈妈为你做过什么？引导孩子说出带“母”的句子。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "母，牧也。从女，象怀子形，一曰象乳子也。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "汉字树",
+      "author": "廖文豪",
+      "note": "从象形到字族，系统识字。"
+    }
+  ]
+}

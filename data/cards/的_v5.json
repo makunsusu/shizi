@@ -1,0 +1,135 @@
+{
+  "char": "的",
+  "pinyin": "de",
+  "stroke_count": 8,
+  "character_type": "形声字",
+  "radical": "白",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 1,
+  "core_origin": "从日（太阳）从勺（勺子），本义是明亮、鲜明。后假借为结构助词。",
+  "original_meaning": "明亮、鲜明",
+  "meaning_shift_summary": "本义为明亮，后假借为表示所属关系的结构助词，成为现代汉语中最常用的字。",
+  "child_story": "很久以前，'的'字左边是'日'（太阳），右边是'勺'（勺子），合起来表示太阳光像勺子里的水一样明亮。后来，人们借用这个字来表示'谁的什么东西'，比如'我的书'、'妈妈的爱'。现在，'的'成了我们说话时最常用的小助手，连接着人和事物。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是'日'，右边是'勺'，表示明亮。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "左边变为'白'，右边为'勺'，结构稳定。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "明亮 → 标记",
+      "nodes": [
+        "太阳明亮",
+        "借为助词",
+        "表示所属"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "目的",
+        "gloss": "想要达到的目标"
+      },
+      {
+        "word": "的确",
+        "gloss": "确实、真实"
+      },
+      {
+        "word": "的士",
+        "gloss": "出租车"
+      }
+    ],
+    "radical_family": {
+      "radical": "白",
+      "meaning_hint": "与白色、明亮有关",
+      "examples": [
+        "白",
+        "百",
+        "皇"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "勺",
+      "sound_hint": "sháo",
+      "examples": [
+        "勺",
+        "芍"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "日",
+        "relation": "字源部件",
+        "note": "表示太阳，是'的'字本义'明亮'的来源"
+      },
+      {
+        "char": "勺",
+        "relation": "声旁",
+        "note": "提供读音线索"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "地",
+        "difference": "结构助词，用于状语，如'慢慢地走'"
+      },
+      {
+        "char": "得",
+        "difference": "结构助词，用于补语，如'跑得快'"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "的",
+    "words": [
+      "我的",
+      "红的",
+      "的确"
+    ],
+    "sentences": [
+      "这是我的书包。",
+      "天空是蓝的。",
+      "他跑得很快。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "的",
+    "word": "我的",
+    "sentence": "这是我的小猫。",
+    "free_speak_prompt": "你能用'的'说说你最喜欢的东西吗？比如'我的玩具'。"
+  },
+  "interaction_prompts": [
+    "找一找：在家里找三样东西，用'的'说句子，比如'妈妈的杯子'。",
+    "比一比：说说'的'和'地'有什么不同？",
+    "编故事：用'的'编一个关于小动物的故事，比如'小兔子的胡萝卜'。"
+  ],
+  "parent_script": [
+    "1. 指着'的'字，告诉孩子：这个字像太阳和勺子，表示明亮，但现在常用来表示'谁的'。",
+    "2. 和孩子一起读词语：我的、红的、的确，让孩子用手指着字读。",
+    "3. 玩'的'字接龙：你说'我的'，孩子说'你的'，轮流说。",
+    "4. 鼓励孩子用'的'描述身边物品，如'爸爸的手机'，并给予表扬。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "《说文解字》",
+      "author": "许慎",
+      "note": "解释'的'本义为'明'，从日勺声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "《儿童识字心理学》",
+      "author": "朱智贤",
+      "note": "强调在语境中识字，避免孤立记忆。"
+    }
+  ]
+}

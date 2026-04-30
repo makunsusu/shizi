@@ -1,0 +1,142 @@
+{
+  "char": "话",
+  "pinyin": "huà",
+  "stroke_count": 8,
+  "character_type": "形声字",
+  "radical": "讠（言字旁）",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 170,
+  "core_origin": "话由“言”和“舌”组成，本义是言语、说话。",
+  "original_meaning": "言语、说话",
+  "meaning_shift_summary": "从具体的话语扩展到谈话、话题等抽象概念。",
+  "child_story": "小朋友，想象一下你张开嘴巴，舌头在动，说出好听的话。古时候的人把“言”和“舌”放在一起，表示用舌头说出的话。所以“话”就是你说出来的声音和意思。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是“言”，表示说话；右边是“舌”，表示发音器官。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "左边简化为“讠”，右边是“舌”，整体结构稳定。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "从说话到内容",
+      "nodes": [
+        "说话",
+        "话语",
+        "话题",
+        "对话"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "说话",
+        "gloss": "用语言表达意思"
+      },
+      {
+        "word": "电话",
+        "gloss": "利用电信号传递声音的通信工具"
+      },
+      {
+        "word": "笑话",
+        "gloss": "引人发笑的故事或话语"
+      },
+      {
+        "word": "童话",
+        "gloss": "儿童故事，充满想象"
+      }
+    ],
+    "radical_family": {
+      "radical": "讠（言字旁）",
+      "meaning_hint": "与说话、语言有关",
+      "examples": [
+        "说",
+        "讲",
+        "读",
+        "语"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "舌",
+      "sound_hint": "提示读音，但声调不同",
+      "examples": [
+        "活",
+        "括",
+        "适"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "言",
+        "relation": "部首来源",
+        "note": "话的左边来自言，表示与语言相关"
+      },
+      {
+        "char": "舌",
+        "relation": "声旁兼义",
+        "note": "话的右边是舌，表示发音器官"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "说",
+        "difference": "说更强调动作，话更强调内容"
+      },
+      {
+        "char": "语",
+        "difference": "语常指系统语言，话指具体话语"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "话",
+    "words": [
+      "说话",
+      "电话",
+      "笑话"
+    ],
+    "sentences": [
+      "妈妈在和我说话。",
+      "我接了一个电话。",
+      "这个笑话真好笑。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "话",
+    "word": "说话",
+    "sentence": "小朋友在教室里说话。",
+    "free_speak_prompt": "你和好朋友打电话时，会说什么有趣的话？"
+  },
+  "interaction_prompts": [
+    "和孩子一起说“话”，观察舌头的位置。",
+    "让孩子用“话”组三个词，并说一句话。",
+    "玩词语接龙：话→话题→题目→目标……"
+  ],
+  "parent_script": [
+    "1. 指着“话”字，告诉孩子左边是言字旁，右边是舌。",
+    "2. 一起说“说话”，让孩子感受舌头动。",
+    "3. 读句子“妈妈在和我说话”，让孩子跟读。",
+    "4. 问孩子：“你今天说了什么有趣的话？”鼓励孩子表达。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "话，合会善言也。从言，舌声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "汉字树",
+      "author": "廖文豪",
+      "note": "通过形声字理解汉字结构。"
+    }
+  ]
+}

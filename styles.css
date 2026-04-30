@@ -86,6 +86,12 @@ label {
   margin-bottom: 8px;
 }
 
+.panel-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .panel-title-row label {
   margin-bottom: 0;
 }
@@ -94,6 +100,32 @@ label {
   min-height: 30px;
   padding: 5px 10px;
   font-size: 13px;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf0;
+  font-weight: 700;
+}
+
+.checkbox-item input {
+  width: 16px;
+  height: 16px;
+  min-height: 16px;
+  margin: 0;
 }
 
 select,
@@ -105,6 +137,19 @@ input {
   background: #fffaf0;
   color: var(--ink);
   padding: 8px 10px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 108px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf0;
+  color: var(--ink);
+  padding: 8px 10px;
+  resize: vertical;
+  font: inherit;
+  line-height: 1.6;
 }
 
 button,
@@ -225,6 +270,13 @@ button:disabled {
   padding: 28px 18px;
   text-align: center;
   box-shadow: 0 14px 30px var(--shadow);
+}
+
+.hero-char-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
 }
 
 .big-char {
@@ -386,6 +438,22 @@ button:disabled {
   animation: pulse 1s ease-in-out infinite;
 }
 
+.hero-tts-button {
+  width: 52px;
+  height: 52px;
+  margin-left: 0;
+  align-self: center;
+  background: #fff5e6;
+  color: var(--accent);
+  border-color: #f0cdb8;
+  box-shadow: 0 10px 18px rgba(201, 66, 54, .08);
+}
+
+.hero-tts-button svg {
+  width: 24px;
+  height: 24px;
+}
+
 ul,
 ol {
   padding-left: 1.3em;
@@ -454,6 +522,74 @@ li {
 
 .loading-box {
   text-align: center;
+}
+
+.loading-progress {
+  margin-top: 16px;
+  text-align: left;
+}
+
+.loading-progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #f7ebd8;
+  overflow: hidden;
+}
+
+.loading-progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), #de7d52);
+  transition: width .2s ease;
+}
+
+.loading-progress-text {
+  margin: 10px 0 8px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.loading-progress-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.loading-progress-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: #fff8ee;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.loading-progress-item span:first-child {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.loading-progress-item.working {
+  background: #fff2df;
+  color: #9c4f2f;
+}
+
+.loading-progress-item.success {
+  background: #edf7ef;
+  color: #236447;
+}
+
+.loading-progress-item.failed {
+  background: #fff0ec;
+  color: #a03932;
 }
 
 .loading-mark {

@@ -1,0 +1,132 @@
+{
+  "char": "忙",
+  "pinyin": "máng",
+  "stroke_count": 6,
+  "character_type": "形声字",
+  "radical": "忄",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 827,
+  "core_origin": "从心（忄），亡声。本义是内心急促、事情多而没空闲。",
+  "original_meaning": "内心急促，事情多而没空闲。",
+  "meaning_shift_summary": "从内心急促引申为事情多、没空闲。",
+  "child_story": "小朋友，看看这个“忙”字，左边是“忄”，表示心，右边是“亡”，表示丢失。古人觉得，忙的时候，心就像丢了一样，慌慌张张的，没时间停下来。所以“忙”就是事情很多，心里急急忙忙，没有空闲。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "从心亡声，心形旁，亡声旁。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "左边竖心旁，右边亡，结构稳定。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "内心急促→事情多",
+      "nodes": [
+        "内心慌张",
+        "事情多",
+        "没空闲"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "忙碌",
+        "gloss": "事情多，没时间休息。"
+      },
+      {
+        "word": "急忙",
+        "gloss": "心里着急，行动快。"
+      },
+      {
+        "word": "帮忙",
+        "gloss": "帮别人做事。"
+      },
+      {
+        "word": "繁忙",
+        "gloss": "事情很多，很忙。"
+      }
+    ],
+    "radical_family": {
+      "radical": "忄",
+      "meaning_hint": "与心理活动有关",
+      "examples": [
+        "忙",
+        "快",
+        "慢",
+        "怕"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "亡",
+      "sound_hint": "声母m，韵母ang",
+      "examples": [
+        "忙",
+        "芒",
+        "盲"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "忘",
+        "relation": "声旁相同，都含亡",
+        "note": "忙是心忙，忘是心忘。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "忘",
+        "difference": "忙是竖心旁，忘是心字底。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "忙",
+    "words": [
+      "忙碌",
+      "急忙",
+      "帮忙"
+    ],
+    "sentences": [
+      "妈妈在厨房忙碌着做饭。",
+      "他急忙跑过去帮忙。",
+      "爸爸工作很忙，但周末会陪我。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "忙",
+    "word": "帮忙",
+    "sentence": "我帮妈妈打扫卫生。",
+    "free_speak_prompt": "你什么时候会觉得忙？"
+  },
+  "interaction_prompts": [
+    "和孩子一起做动作：一边快速走动一边说“忙忙忙”，然后停下来慢慢走说“闲闲闲”。",
+    "问孩子：家里谁最忙？为什么？",
+    "玩词语接龙：忙→忙碌→碌（可以换字）。"
+  ],
+  "parent_script": [
+    "先让孩子看字形，指出左边是竖心旁，右边是亡。",
+    "讲字源故事：忙的时候心像丢了一样。",
+    "一起读词语和句子，让孩子用手指着读。",
+    "问孩子什么时候会忙，鼓励他用“忙”说一句话。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "忙，心迫也。从心亡声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童字源识字教学指导",
+      "author": "项目组",
+      "note": "通过字源故事和情境互动帮助儿童理解汉字。"
+    }
+  ]
+}

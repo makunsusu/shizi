@@ -1,0 +1,145 @@
+{
+  "char": "节",
+  "pinyin": "jié",
+  "stroke_count": 5,
+  "character_type": "会意字",
+  "radical": "艹",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 514,
+  "core_origin": "竹字头+即，表示竹节",
+  "original_meaning": "竹节，竹子分段的地方",
+  "meaning_shift_summary": "从竹节引申为分段、节制、节日等",
+  "child_story": "很久以前，人们发现竹子是一节一节的，每一节都像一个小台阶。古人就用竹字头加上‘即’字，造出了‘节’，表示竹子的节。后来，节的意思变多了：比如‘节日’是一年中的特别日子，‘节约’是节省每一分钱，‘关节’是身体可以弯曲的地方。节就像一个小标记，告诉我们哪里可以停一停、分一分。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商",
+      "description": "像竹子节节相连的形状"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "竹字头加‘即’，强调节段"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "简化后写作‘节’"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "竹节→分段",
+      "nodes": [
+        "竹节",
+        "关节",
+        "季节",
+        "章节"
+      ]
+    },
+    {
+      "label": "竹节→节制",
+      "nodes": [
+        "节制",
+        "节约",
+        "节省",
+        "节俭"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "节日",
+        "gloss": "特别的日子，如春节"
+      },
+      {
+        "word": "节约",
+        "gloss": "不浪费"
+      },
+      {
+        "word": "季节",
+        "gloss": "一年中的四个时段"
+      },
+      {
+        "word": "关节",
+        "gloss": "骨头连接的地方"
+      }
+    ],
+    "radical_family": {
+      "radical": "艹",
+      "meaning_hint": "与植物有关",
+      "examples": [
+        "花",
+        "草",
+        "节"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "即",
+      "sound_hint": "jié",
+      "examples": [
+        "节",
+        "疖"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "即",
+        "relation": "声旁",
+        "note": "提供读音"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "卫",
+        "difference": "卫是保卫，节是节制"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "节",
+    "words": [
+      "节日",
+      "节约",
+      "季节"
+    ],
+    "sentences": [
+      "春节是全家团圆的节日。",
+      "我们要节约用水。",
+      "一年有四个季节。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "节",
+    "word": "节日",
+    "sentence": "春节是全家团圆的节日。",
+    "free_speak_prompt": "你最喜欢哪个节日？为什么？"
+  },
+  "interaction_prompts": [
+    "和孩子一起数一数竹子有几节。",
+    "让孩子说说家里有哪些节约的好办法。",
+    "画一个节日场景，比如春节放鞭炮。"
+  ],
+  "parent_script": [
+    "先指着‘节’字，告诉孩子它像竹子一节一节的样子。",
+    "读词语‘节日’、‘节约’，让孩子跟读。",
+    "问孩子‘你最喜欢什么节日？’引导说句子。",
+    "一起做节约小行动，比如关灯节水。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "节，竹约也"
+    },
+    {
+      "type": "识字方法论",
+      "title": "字源识字法",
+      "author": "李山川",
+      "note": "通过字源理解汉字"
+    }
+  ]
+}

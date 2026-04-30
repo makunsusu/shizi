@@ -1,0 +1,139 @@
+{
+  "char": "扫",
+  "pinyin": "sǎo",
+  "stroke_count": 6,
+  "character_type": "会意兼形声",
+  "radical": "扌",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 1435,
+  "core_origin": "从手（扌）持帚（彐）清扫，本义是打扫。",
+  "original_meaning": "用扫帚清除灰尘、垃圾。",
+  "meaning_shift_summary": "从具体打扫动作，引申为清除、扫除、快速掠过等抽象义。",
+  "child_story": "很久以前，人们用手拿着扫帚把地上的落叶和灰尘扫干净。后来，人们把“手”和“扫帚”的样子合在一起，造出了“扫”字。你看，“扫”的左边是“扌”，像一只手；右边是“彐”，像一把扫帚。所以“扫”就是用手拿扫帚做清洁的意思。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是“手”，右边是“帚”，表示手持扫帚。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉以后",
+      "description": "左边简化为“扌”，右边简化为“彐”，结构更方正。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "打扫→清除",
+      "nodes": [
+        "扫地",
+        "扫除",
+        "扫清障碍"
+      ]
+    },
+    {
+      "label": "快速掠过",
+      "nodes": [
+        "扫视",
+        "扫描",
+        "扫过"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "扫地",
+        "gloss": "用扫帚打扫地面"
+      },
+      {
+        "word": "打扫",
+        "gloss": "清理卫生"
+      },
+      {
+        "word": "扫除",
+        "gloss": "清除掉"
+      },
+      {
+        "word": "扫视",
+        "gloss": "目光快速移动看"
+      }
+    ],
+    "radical_family": {
+      "radical": "扌",
+      "meaning_hint": "与手部动作有关",
+      "examples": [
+        "打",
+        "拍",
+        "拉"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "彐",
+      "sound_hint": "不直接表音，但提示字形来源",
+      "examples": []
+    },
+    "etymology_relations": [
+      {
+        "char": "帚",
+        "relation": "字源同源",
+        "note": "扫字右边原本是‘帚’，表示扫帚。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "妇",
+        "difference": "右边是‘彐’但左边是‘女’，意思是妇女。"
+      },
+      {
+        "char": "雪",
+        "difference": "上面是‘雨’，下面是‘彐’，表示雪。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "扫",
+    "words": [
+      "扫地",
+      "打扫",
+      "扫除"
+    ],
+    "sentences": [
+      "妈妈在扫地。",
+      "我们一起打扫房间。",
+      "扫除垃圾，环境更美。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "扫",
+    "word": "扫地",
+    "sentence": "小明每天帮妈妈扫地。",
+    "free_speak_prompt": "你在家里会帮忙扫地吗？说说你是怎么扫地的？"
+  },
+  "interaction_prompts": [
+    "和孩子一起做扫地的动作，边做边说‘扫’字。",
+    "找一找家里有哪些东西可以用来‘扫’？",
+    "让孩子用‘扫’字说一句话，比如‘我扫了地板’。"
+  ],
+  "parent_script": [
+    "1. 先让孩子看‘扫’字，问左边是什么（提手旁），右边像什么（扫帚）。",
+    "2. 讲字源故事：古人用手拿扫帚打扫，所以‘扫’就是打扫的意思。",
+    "3. 一起读词语‘扫地、打扫、扫除’，并做动作。",
+    "4. 让孩子用‘扫’说一句话，并鼓励他帮忙做家务。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "‘扫，弃也。从手从帚。’"
+    },
+    {
+      "type": "识字方法论",
+      "title": "汉字树",
+      "author": "廖文豪",
+      "note": "通过字形演变帮助儿童理解字义。"
+    }
+  ]
+}

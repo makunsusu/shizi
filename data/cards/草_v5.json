@@ -1,0 +1,155 @@
+{
+  "char": "草",
+  "pinyin": "cǎo",
+  "stroke_count": 9,
+  "character_type": "形声字",
+  "radical": "艹",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 789,
+  "core_origin": "艸（草的本字）象形，后加声旁“早”分化出“草”。",
+  "original_meaning": "草本植物的总称。",
+  "meaning_shift_summary": "从植物引申为粗糙、初步、草稿等义。",
+  "child_story": "很久以前，古人画了两棵小草的样子，就是“艸”字。后来人们觉得光画草不够用，就加了一个表示读音的“早”，变成了“草”。所以“草”字上面是草字头，代表植物，下面是“早”，提醒读音。小草虽然矮小，但生命力很强，到处都能生长。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商代",
+      "description": "像两棵草的形状，即“艸”。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦代",
+      "description": "艸字头加“早”声旁，形成“草”。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉魏以后",
+      "description": "草字头（艹）加“早”，现代字形。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "植物→颜色",
+      "nodes": [
+        "草（植物）",
+        "草绿（颜色）",
+        "草地（长草的地方）"
+      ]
+    },
+    {
+      "label": "植物→初步",
+      "nodes": [
+        "草（植物）",
+        "草稿（初步写的东西）",
+        "草率（不仔细）"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "草地",
+        "gloss": "长满草的地方"
+      },
+      {
+        "word": "小草",
+        "gloss": "小的草"
+      },
+      {
+        "word": "草原",
+        "gloss": "大片长草的原野"
+      },
+      {
+        "word": "草稿",
+        "gloss": "初步写出的稿子"
+      }
+    ],
+    "radical_family": {
+      "radical": "艹",
+      "meaning_hint": "与植物有关",
+      "examples": [
+        "花",
+        "草",
+        "苗",
+        "菜"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "早",
+      "sound_hint": "韵母 ao",
+      "examples": [
+        "草",
+        "操",
+        "澡",
+        "噪"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "艸",
+        "relation": "古字",
+        "note": "草的本字，象形。"
+      },
+      {
+        "char": "早",
+        "relation": "声旁",
+        "note": "表示读音。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "操",
+        "difference": "草是植物，操是动作，偏旁不同。"
+      },
+      {
+        "char": "澡",
+        "difference": "草是植物，澡是洗澡，偏旁不同。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "草",
+    "words": [
+      "草地",
+      "小草",
+      "草原"
+    ],
+    "sentences": [
+      "小羊在草地上吃草。",
+      "春天到了，小草发芽了。",
+      "草原上有很多牛羊。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "草",
+    "word": "草地",
+    "sentence": "我们在草地上放风筝。",
+    "free_speak_prompt": "你见过什么样的草地？和谁一起去的？"
+  },
+  "interaction_prompts": [
+    "和孩子一起找一找家里或户外有哪些东西是草做的？",
+    "用手比划“草”字：双手向上伸，像小草发芽。",
+    "玩“草字头”游戏：说出带有草字头的字，看谁说得多。"
+  ],
+  "parent_script": [
+    "先指认“草”字，问孩子在哪里见过草。",
+    "讲字源故事：古人画两棵小草，后来加“早”变成“草”。",
+    "一起读词句：草地、小草、草原，并让孩子用这些词说一句话。",
+    "玩互动游戏：比划小草动作，或找草字头的字。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "草，草斗，栎实也。一曰象斗子。从艸早声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童汉字学习指南",
+      "author": "现代教育研究",
+      "note": "通过字源故事和互动游戏帮助儿童理解汉字。"
+    }
+  ]
+}

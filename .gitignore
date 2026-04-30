@@ -1,4 +1,18 @@
-.claude
-.codex
+.claude/
+.codex/
+
+# 本地配置
 config/openai-config.json
-tts-config.json
+config/tts-config.json
+
+# 生成产物
+data/audio/
+
+# 本地日志与临时文件
+*.log
+tmp-*.js
+
+# 常见依赖与系统文件
+node_modules/
+.DS_Store
+Thumbs.db

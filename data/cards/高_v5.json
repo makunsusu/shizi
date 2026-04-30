@@ -1,0 +1,155 @@
+{
+  "char": "高",
+  "pinyin": "gāo",
+  "stroke_count": 10,
+  "character_type": "象形",
+  "radical": "高",
+  "structure": "上中下",
+  "age_band": "6-8",
+  "frequency_rank": 134,
+  "core_origin": "高是象形字，像一座高高的台子或楼阁的样子。",
+  "original_meaning": "高大的建筑，引申为高度大。",
+  "meaning_shift_summary": "从高大的建筑，引申为从下到上距离大，再引申为等级、品质、声音等超过一般。",
+  "child_story": "很久以前，人们想表示“高”这个意思，就画了一座高高的台子。台子下面有底座，中间一层层往上，最上面是尖尖的屋顶。这个图画慢慢变成了今天的“高”字。所以“高”就像一座高楼，一眼望不到顶。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商代",
+      "description": "像一座多层的高台或楼阁，上部是屋顶，下部是台基。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦代",
+      "description": "字形线条化，仍保留台阁形状。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉代以后",
+      "description": "演变为现在的“高”字，上中下结构。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "空间高度",
+      "nodes": [
+        "高台",
+        "高楼",
+        "高山",
+        "高空"
+      ]
+    },
+    {
+      "label": "抽象程度",
+      "nodes": [
+        "高级",
+        "高尚",
+        "高贵",
+        "高兴"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "高兴",
+        "gloss": "愉快、快乐"
+      },
+      {
+        "word": "高大",
+        "gloss": "又高又大"
+      },
+      {
+        "word": "提高",
+        "gloss": "使位置、程度、水平等上升"
+      },
+      {
+        "word": "高度",
+        "gloss": "从底部到顶部的距离"
+      }
+    ],
+    "radical_family": {
+      "radical": "高",
+      "meaning_hint": "与高大、建筑有关",
+      "examples": [
+        "高",
+        "亭",
+        "亮"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "高",
+      "sound_hint": "韵母 ao",
+      "examples": [
+        "糕",
+        "搞",
+        "稿"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "京",
+        "relation": "同源",
+        "note": "京也像高大的建筑，与高同源。"
+      },
+      {
+        "char": "亭",
+        "relation": "同源",
+        "note": "亭是路边的高台，与高有关。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "亮",
+        "difference": "亮是上中下结构，但下面是“儿”，表示光线充足；高下面是“口”，表示台子。"
+      },
+      {
+        "char": "高",
+        "difference": "自己和自己比，注意不要写成“高”少一横。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "高",
+    "words": [
+      "高兴",
+      "高大",
+      "提高"
+    ],
+    "sentences": [
+      "今天我很高兴。",
+      "爸爸个子很高大。",
+      "我们要努力提高成绩。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "高",
+    "word": "高兴",
+    "sentence": "我考了100分，非常高兴。",
+    "free_speak_prompt": "你什么时候最高兴？说说看。"
+  },
+  "interaction_prompts": [
+    "和孩子一起比一比，家里什么东西最高？",
+    "让孩子用手比划“高”字的样子，边说边做动作。",
+    "读句子时，读到“高”字可以跳起来，表示高。"
+  ],
+  "parent_script": [
+    "第一步：指着“高”字，告诉孩子它像一座高高的台子。",
+    "第二步：和孩子一起读词语“高兴”“高大”，并做动作。",
+    "第三步：用“高”字编一个短句，比如“我长得高高的”。",
+    "第四步：让孩子用“高”说一句话，并录下来。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "高，崇也。象台观高之形。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童字源识字教学指南",
+      "author": "李山川",
+      "note": "字源识字强调通过字形演变理解字义。"
+    }
+  ]
+}

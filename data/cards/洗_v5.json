@@ -1,0 +1,148 @@
+{
+  "char": "洗",
+  "pinyin": "xǐ",
+  "stroke_count": 9,
+  "character_type": "形声字",
+  "radical": "氵",
+  "structure": "左右结构",
+  "age_band": "6-8",
+  "frequency_rank": 1247,
+  "core_origin": "洗，从水，先声。本义是洗脚，后泛指洗涤。",
+  "original_meaning": "洗脚",
+  "meaning_shift_summary": "从洗脚扩展到洗涤一切物品，再引申为清除、清洗。",
+  "child_story": "很久以前，古人把洗脚叫做“洗”。你看“洗”字左边是三点水，代表水；右边是“先”，表示读音。古人很重视洗脚，因为走了一天路，脚上沾满泥土，用热水洗脚特别舒服。后来，“洗”的意思变大了，洗衣服、洗菜、洗手、洗脸，只要用水把东西弄干净，都可以叫“洗”。",
+  "glyph_stages": [
+    {
+      "stage": "小篆",
+      "era": "秦",
+      "description": "左边是水，右边是“先”，形声结构清晰。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉至今",
+      "description": "字形稳定，左窄右宽，三点水旁。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "洗脚→洗涤",
+      "nodes": [
+        "洗脚",
+        "用水清洁",
+        "洗涤衣物",
+        "清洗餐具"
+      ]
+    },
+    {
+      "label": "洗涤→清除",
+      "nodes": [
+        "洗掉污渍",
+        "清洗心灵",
+        "洗刷罪名"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "洗手",
+        "gloss": "用水清洁手部"
+      },
+      {
+        "word": "洗衣",
+        "gloss": "洗衣服"
+      },
+      {
+        "word": "洗澡",
+        "gloss": "用水清洁身体"
+      },
+      {
+        "word": "清洗",
+        "gloss": "彻底洗干净"
+      }
+    ],
+    "radical_family": {
+      "radical": "氵",
+      "meaning_hint": "三点水表示与水有关",
+      "examples": [
+        "河",
+        "海",
+        "洗"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "先",
+      "sound_hint": "先（xiān）提示读音，但声调不同",
+      "examples": [
+        "洗",
+        "铣"
+      ]
+    },
+    "etymology_relations": [
+      {
+        "char": "洒",
+        "relation": "同义",
+        "note": "洒和洗都有用水清洁的意思，但洒更强调泼洒。"
+      },
+      {
+        "char": "涤",
+        "relation": "同义",
+        "note": "涤是洗的高级说法，如洗涤。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "冼",
+        "difference": "冼（xiǎn）是姓氏，左边是两点水，不是三点水。"
+      },
+      {
+        "char": "选",
+        "difference": "选（xuǎn）是选择，右边是“先”，但左边是“辶”。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "洗",
+    "words": [
+      "洗手",
+      "洗衣",
+      "洗澡"
+    ],
+    "sentences": [
+      "饭前要洗手。",
+      "妈妈在洗衣。",
+      "我每天洗澡。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "洗",
+    "word": "洗手",
+    "sentence": "饭前要洗手。",
+    "free_speak_prompt": "你什么时候需要洗手？"
+  },
+  "interaction_prompts": [
+    "和孩子一起做洗手的动作，边洗边说“洗手”。",
+    "问孩子：除了洗手，还可以洗什么？",
+    "让孩子用“洗”说一句话，比如“我帮妈妈洗苹果”。"
+  ],
+  "parent_script": [
+    "1. 指着“洗”字，问孩子：这个字哪里表示水？哪里表示读音？",
+    "2. 讲字源故事：古人洗脚叫“洗”，后来什么都能洗。",
+    "3. 一起读词语和句子，让孩子用手指着字读。",
+    "4. 玩“洗东西”游戏：说出家里可以洗的物品，每说一个就做洗的动作。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "说文解字",
+      "author": "许慎",
+      "note": "洗，洒足也。从水，先声。"
+    },
+    {
+      "type": "识字方法论",
+      "title": "儿童汉字学习指南",
+      "author": "李山川",
+      "note": "字源识字强调理解字的本义和引申，避免死记硬背。"
+    }
+  ]
+}

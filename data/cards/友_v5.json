@@ -1,0 +1,161 @@
+{
+  "char": "友",
+  "pinyin": "yǒu",
+  "stroke_count": 4,
+  "character_type": "会意字",
+  "radical": "又",
+  "structure": "上下结构",
+  "age_band": "6-8",
+  "frequency_rank": 594,
+  "core_origin": "两只手交握，表示互相帮助、友好相处。",
+  "original_meaning": "朋友、友好",
+  "meaning_shift_summary": "从两人握手相助，引申为朋友、友好、友爱。",
+  "child_story": "很久很久以前，人们用两只手交握在一起表示“友”。你看，甲骨文里的“友”就像两只右手叠在一起，好像在说：“我们是好朋友，互相帮助！”后来慢慢变成了现在的样子，但意思没变，还是表示朋友之间友好、友爱。",
+  "glyph_stages": [
+    {
+      "stage": "甲骨文",
+      "era": "商代",
+      "description": "像两只右手交叠，表示握手相助。"
+    },
+    {
+      "stage": "金文",
+      "era": "西周",
+      "description": "两只手形更加清晰，方向一致。"
+    },
+    {
+      "stage": "小篆",
+      "era": "秦代",
+      "description": "两只手上下排列，线条化。"
+    },
+    {
+      "stage": "楷书",
+      "era": "汉代以后",
+      "description": "演变为“𠂇”加“又”，即现在的“友”。"
+    }
+  ],
+  "meaning_journey": [
+    {
+      "label": "朋友 → 友好",
+      "nodes": [
+        "两人握手",
+        "互相帮助",
+        "成为朋友",
+        "友好相处"
+      ]
+    },
+    {
+      "label": "友爱 → 友谊",
+      "nodes": [
+        "友好",
+        "友爱",
+        "友谊",
+        "友情"
+      ]
+    }
+  ],
+  "character_relations": {
+    "word_family": [
+      {
+        "word": "朋友",
+        "gloss": "彼此友好的人"
+      },
+      {
+        "word": "友好",
+        "gloss": "亲近和睦"
+      },
+      {
+        "word": "友爱",
+        "gloss": "友好亲爱"
+      },
+      {
+        "word": "友谊",
+        "gloss": "朋友之间的情谊"
+      },
+      {
+        "word": "友情",
+        "gloss": "朋友的感情"
+      }
+    ],
+    "radical_family": {
+      "radical": "又",
+      "meaning_hint": "表示手或手的动作",
+      "examples": [
+        "又",
+        "友",
+        "取",
+        "受"
+      ]
+    },
+    "phonetic_family": {
+      "phonetic_component": "",
+      "sound_hint": "",
+      "examples": []
+    },
+    "etymology_relations": [
+      {
+        "char": "有",
+        "relation": "同音假借",
+        "note": "“有”和“友”古音相近，有时通用。"
+      },
+      {
+        "char": "右",
+        "relation": "同源分化",
+        "note": "“右”本义是右手，与“友”都从“又”得义。"
+      }
+    ],
+    "confusable_chars": [
+      {
+        "char": "有",
+        "difference": "“有”表示拥有，里面是“月”；“友”表示朋友，上面是“𠂇”。"
+      },
+      {
+        "char": "左",
+        "difference": "“左”是左手，下面有“工”；“友”是两手交握。"
+      }
+    ]
+  },
+  "reading_context": {
+    "char": "友",
+    "words": [
+      "朋友",
+      "友好",
+      "友爱"
+    ],
+    "sentences": [
+      "我和小明是好朋友。",
+      "大家要友好相处。",
+      "同学之间要友爱互助。"
+    ]
+  },
+  "recording_ladder": {
+    "char": "友",
+    "word": "朋友",
+    "sentence": "我和小明是好朋友。",
+    "free_speak_prompt": "你的好朋友是谁？你们一起做什么？"
+  },
+  "interaction_prompts": [
+    "和孩子一起伸出右手，做握手动作，说“友”就是两只手交握。",
+    "让孩子说说自己和好朋友之间互相帮助的一件事。",
+    "玩“找朋友”游戏：家长说“友”，孩子说出带“友”的词语。"
+  ],
+  "parent_script": [
+    "1. 和孩子一起伸出右手，做握手动作，告诉他“友”就是两只手交握，表示友好。",
+    "2. 让孩子在纸上写“友”，边写边说笔画：横、撇、横撇、捺。",
+    "3. 和孩子一起读词语“朋友”“友好”“友爱”，并造句。",
+    "4. 让孩子讲讲自己和好朋友的故事，鼓励他用上“友”字。"
+  ],
+  "citations": [
+    {
+      "type": "字源考据",
+      "title": "《说文解字》",
+      "author": "许慎",
+      "note": "“友，同志为友。从二又，相交友也。”"
+    },
+    {
+      "type": "识字方法论",
+      "title": "《汉字树》",
+      "author": "廖文豪",
+      "note": "通过字形演变和字族关系帮助儿童理解汉字。"
+    }
+  ]
+}
