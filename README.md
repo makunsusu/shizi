@@ -30,12 +30,11 @@
 
 ```json
 {
-  "baseUrl": "https://api.moonshot.ai/v1",
+  "baseUrl": "https://api.deepseek.com/v1",
   "apiKey": "你的 API Key",
-  "model": "kimi-k2.6",
+  "model": "deepseek-v4-flash",
   "temperature": 0.4,
-  "ageBand": "6-8",
-  "apiMode": "chat_completions"
+  "ageBand": "6-8"
 }
 ```
 
