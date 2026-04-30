@@ -14,6 +14,7 @@ const audioDir = path.join(dataDir, "audio");
 const registryPath = path.join(dataDir, "characters.json");
 const batchTasks = new Map();
 const maxBatchTasks = 20;
+const maxTtsBatchTasks = 20;
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -73,6 +74,14 @@ const server = http.createServer(async (request, response) => {
     }
     if (request.method === "POST" && request.url === "/api/tts") {
       await handleTTS(request, response);
+      return;
+    }
+    if (request.method === "POST" && request.url === "/api/tts/batch") {
+      await handleTTSBatch(request, response);
+      return;
+    }
+    if (request.method === "GET" && request.url.startsWith("/api/tts/batch/")) {
+      handleTTSBatchStatus(request, response);
       return;
     }
     serveStatic(request, response);
@@ -296,6 +305,55 @@ async function handleTTS(request, response) {
   }
 }
 
+async function handleTTSBatch(request, response) {
+  const body = await readBody(request);
+  const payload = JSON.parse(body || "{}");
+  const tasks = Array.isArray(payload.tasks) ? payload.tasks : [];
+  const normalizedTasks = tasks
+    .map((task) => ({
+      char: String(task.char || "").trim(),
+      label: String(task.label || "").trim() || "语音",
+      payload: task.payload || {}
+    }))
+    .filter((task) => task.char && task.payload && typeof task.payload.text === "string" && task.payload.text.trim());
+
+  if (normalizedTasks.length === 0) {
+    sendJSON(response, 400, { error: "请至少传入一条有效语音任务" });
+    return;
+  }
+
+  const config = readTTSConfig();
+  if (!config || !config.accessKey) {
+    sendJSON(response, 400, { error: "TTS 配置缺失，请先配置 accessKey" });
+    return;
+  }
+
+  const task = createTTSBatchTask(normalizedTasks);
+  log(`收到批量语音任务：${task.id}，共 ${normalizedTasks.length} 条`);
+  processTTSBatchTask(task.id, config).catch((error) => {
+    log(`批量语音任务异常终止：${task.id}，原因：${error.message}`);
+    const failedTask = batchTasks.get(task.id);
+    if (failedTask) {
+      failedTask.status = "failed";
+      failedTask.error = error.message;
+      failedTask.updatedAt = new Date().toISOString();
+      persistTTSBatchTask(failedTask);
+    }
+  });
+  sendJSON(response, 202, { taskId: task.id, task: buildBatchTaskResponse(task) });
+}
+
+function handleTTSBatchStatus(request, response) {
+  const pathname = new URL(request.url, `http://${host}:${port}`).pathname;
+  const taskId = decodeURIComponent(pathname.replace("/api/tts/batch/", "").trim());
+  const task = batchTasks.get(taskId);
+  if (!task || task.type !== "tts-batch") {
+    sendJSON(response, 404, { error: "任务不存在或已过期" });
+    return;
+  }
+  sendJSON(response, 200, { task: buildBatchTaskResponse(task) });
+}
+
 function buildTTSHeaders(config, body, requestId) {
   const headers = {
     "Content-Type": "application/json",
@@ -306,6 +364,31 @@ function buildTTSHeaders(config, body, requestId) {
     "X-Api-Request-Id": requestId
   };
   return headers;
+}
+
+function synthesizeTTSPayload(config, payload) {
+  const { text, speaker: reqSpeaker, audioKey, audioSlug, textType, ssmlText } = payload || {};
+  if (!text || typeof text !== "string") {
+    throw new Error("缺少 text 参数");
+  }
+
+  const speaker = reqSpeaker || config.speaker || "zh_female_xiaoyi_meitu";
+  const audioParams = config.audioParams || { format: "mp3", sample_rate: 24000, speech_rate: 0 };
+  const normalizedTextType = textType === "ssml" && ssmlText ? "ssml" : "plain";
+  const synthesisText = normalizedTextType === "ssml" ? ssmlText : text;
+  const hash = getAudioHash(synthesisText, speaker, audioParams, normalizedTextType);
+  const audioFile = buildAudioFileName(hash, audioParams, { audioKey, audioSlug });
+  const audioPath = path.join(audioDir, audioFile);
+
+  return {
+    speaker,
+    audioParams,
+    normalizedTextType,
+    synthesisText,
+    hash,
+    audioFile,
+    audioPath
+  };
 }
 
 function requestTTSAudio(config, text, speaker, audioParams, textType = "plain") {
@@ -465,10 +548,41 @@ function createBatchTask(chars) {
   return task;
 }
 
+function createTTSBatchTask(tasks) {
+  const task = {
+    id: `tts-batch-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    type: "tts-batch",
+    status: "running",
+    tasks: tasks.map((item) => ({ ...item })),
+    total: tasks.length,
+    current: 0,
+    currentChar: "",
+    success: 0,
+    failed: 0,
+    skipped: 0,
+    error: "",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    completedAt: "",
+    items: tasks.map((item) => ({ char: item.char, status: "pending", label: item.label }))
+  };
+  persistTTSBatchTask(task);
+  return task;
+}
+
 function persistBatchTask(task) {
   batchTasks.set(task.id, task);
   const taskIds = [...batchTasks.keys()];
   while (taskIds.length > maxBatchTasks) {
+    const firstId = taskIds.shift();
+    if (firstId) batchTasks.delete(firstId);
+  }
+}
+
+function persistTTSBatchTask(task) {
+  batchTasks.set(task.id, task);
+  const taskIds = [...batchTasks.keys()].filter((id) => batchTasks.get(id)?.type === "tts-batch");
+  while (taskIds.length > maxTtsBatchTasks) {
     const firstId = taskIds.shift();
     if (firstId) batchTasks.delete(firstId);
   }
@@ -538,6 +652,70 @@ async function processBatchTask(taskId, config) {
   completedTask.updatedAt = completedTask.completedAt;
   persistBatchTask(completedTask);
   log(`批量任务完成：${taskId}，成功 ${completedTask.success}，失败 ${completedTask.failed}，跳过 ${completedTask.skipped}`);
+}
+
+async function processTTSBatchTask(taskId, config) {
+  const task = batchTasks.get(taskId);
+  if (!task) return;
+
+  for (let index = 0; index < task.tasks.length; index++) {
+    const currentTask = batchTasks.get(taskId);
+    if (!currentTask) return;
+    const current = currentTask.tasks[index];
+    currentTask.current = index;
+    currentTask.currentChar = `${current.char} / ${current.label}`;
+    currentTask.updatedAt = new Date().toISOString();
+    currentTask.items[index] = { char: current.char, status: "working", label: `${current.label} 生成中` };
+    persistTTSBatchTask(currentTask);
+
+    try {
+      const synthesized = synthesizeTTSPayload(config, current.payload);
+      if (fs.existsSync(synthesized.audioPath)) {
+        currentTask.success += 1;
+        currentTask.skipped += 1;
+        currentTask.items[index] = { char: current.char, status: "success", label: `${current.label} 已缓存` };
+      } else {
+        const existingFile = findExistingAudioFileByHash(synthesized.hash, synthesized.audioParams.format || "mp3");
+        if (existingFile) {
+          const existingPath = path.join(audioDir, existingFile);
+          if (existingPath !== synthesized.audioPath) {
+            fs.renameSync(existingPath, synthesized.audioPath);
+          }
+          currentTask.success += 1;
+          currentTask.skipped += 1;
+          currentTask.items[index] = { char: current.char, status: "success", label: `${current.label} 已缓存` };
+        } else {
+          const audioBuffer = await requestTTSAudio(
+            config,
+            synthesized.synthesisText,
+            synthesized.speaker,
+            synthesized.audioParams,
+            synthesized.normalizedTextType
+          );
+          fs.writeFileSync(synthesized.audioPath, audioBuffer);
+          currentTask.success += 1;
+          currentTask.items[index] = { char: current.char, status: "success", label: `${current.label} 已完成` };
+        }
+      }
+    } catch (error) {
+      currentTask.failed += 1;
+      currentTask.items[index] = { char: current.char, status: "failed", label: error.message || "生成失败" };
+      currentTask.error = error.message || "生成失败";
+    }
+
+    currentTask.current = index + 1;
+    currentTask.updatedAt = new Date().toISOString();
+    persistTTSBatchTask(currentTask);
+  }
+
+  const completedTask = batchTasks.get(taskId);
+  if (!completedTask) return;
+  completedTask.status = completedTask.failed > 0 ? "completed_with_errors" : "completed";
+  completedTask.currentChar = "";
+  completedTask.completedAt = new Date().toISOString();
+  completedTask.updatedAt = completedTask.completedAt;
+  persistTTSBatchTask(completedTask);
+  log(`批量语音任务完成：${taskId}，成功 ${completedTask.success}，失败 ${completedTask.failed}，缓存 ${completedTask.skipped}`);
 }
 
 function readBody(request) {

@@ -11,6 +11,7 @@ const state = {
 };
 
 const ACTIVE_BATCH_TASK_STORAGE_KEY = "shizi_active_batch_task_id";
+const ACTIVE_AUDIO_BATCH_TASK_STORAGE_KEY = "shizi_active_audio_batch_task_id";
 
 const elements = {
   search: document.getElementById("characterSearch"),
@@ -78,6 +79,7 @@ async function init() {
   renderTitleDashboard();
   await loadCharacterList();
   await resumeActiveBatchTask();
+  await resumeActiveAudioBatchTask();
 }
 
 function bindEvents() {
@@ -186,7 +188,7 @@ function prepareBatchAudioGeneration() {
     message: buildBatchAudioConfirmMessage(parsed, selectedTypes),
     confirmText: `生成 ${parsed.targetItems.length * selectedTypes.length} 条语音`,
     showInput: false,
-    onConfirm: () => generateBatchAudioFiles(parsed.targetItems, selectedTypes)
+    onConfirm: () => generateBatchAudioFilesInBackground(parsed.targetItems, selectedTypes)
   });
 }
 
@@ -707,6 +709,77 @@ async function watchHanziBatchTask(taskId) {
   }
 }
 
+async function startAudioBatchTask(tasks) {
+  const response = await fetch("/api/tts/batch", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tasks })
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.error || "批量语音任务创建失败");
+  }
+  return payload.task || payload;
+}
+
+async function fetchAudioBatchTask(taskId) {
+  const response = await fetch(`/api/tts/batch/${encodeURIComponent(taskId)}`, {
+    cache: "no-store"
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.error || "批量语音任务读取失败");
+  }
+  return payload.task || payload;
+}
+
+async function watchAudioBatchTask(taskId) {
+  while (true) {
+    const task = await fetchAudioBatchTask(taskId);
+    renderAudioBatchTaskProgress(task);
+    if (task.status === "completed" || task.status === "completed_with_errors" || task.status === "failed") {
+      finalizeAudioBatchTask(task);
+      return task;
+    }
+    await sleep(1200);
+  }
+}
+
+function renderAudioBatchTaskProgress(task) {
+  updateLoadingProgress({
+    total: Number(task.total || 0),
+    current: Number(task.current || 0),
+    currentChar: task.currentChar || "",
+    success: Number(task.success || 0),
+    failed: Number(task.failed || 0),
+    skipped: Number(task.skipped || 0),
+    title: "批量生成语音中，请稍候",
+    description: "任务已经交给服务端后台执行，即使关闭页面也会继续处理。",
+    items: task.items || []
+  });
+}
+
+function finalizeAudioBatchTask(task) {
+  clearActiveAudioBatchTaskId();
+  if (task.status === "failed") {
+    showInfoDialog("批量语音生成失败", task.error || "后台任务执行失败");
+    return;
+  }
+
+  const failedItems = (task.items || [])
+    .filter((item) => item.status === "failed")
+    .map((item) => ({ char: item.char, message: item.label || "生成失败" }));
+  const summary = [`共处理 ${Number(task.total || 0)} 条语音，成功 ${Number(task.success || 0)} 条。`];
+  if (Number(task.skipped || 0) > 0) {
+    summary.push(`其中命中缓存 ${Number(task.skipped || 0)} 条。`);
+  }
+  if (Number(task.failed || 0) > 0) {
+    const detail = failedItems.slice(0, 3).map((item) => `${item.char}：${item.message}`).join("；");
+    summary.push(`失败 ${Number(task.failed || 0)} 条。${detail}`);
+  }
+  showInfoDialog("批量语音生成完成", summary.join(""));
+}
+
 function renderHanziBatchTaskProgress(task) {
   updateLoadingProgress({
     total: Number(task.total || 0),
@@ -785,6 +858,44 @@ function clearActiveBatchTaskId() {
   state.activeBatchTaskId = "";
   try {
     localStorage.removeItem(ACTIVE_BATCH_TASK_STORAGE_KEY);
+  } catch {}
+}
+
+async function resumeActiveAudioBatchTask() {
+  const taskId = readActiveAudioBatchTaskId();
+  if (!taskId) return;
+  elements.openBatchAudioDialogButton.disabled = true;
+  elements.openAddDialogButton.disabled = true;
+  setLoading(true);
+  try {
+    await watchAudioBatchTask(taskId);
+  } catch (error) {
+    clearActiveAudioBatchTaskId();
+    showInfoDialog("语音任务恢复失败", error.message || "无法恢复后台批量语音任务");
+  } finally {
+    setLoading(false);
+    elements.openBatchAudioDialogButton.disabled = false;
+    elements.openAddDialogButton.disabled = false;
+  }
+}
+
+function setActiveAudioBatchTaskId(taskId) {
+  try {
+    localStorage.setItem(ACTIVE_AUDIO_BATCH_TASK_STORAGE_KEY, taskId);
+  } catch {}
+}
+
+function readActiveAudioBatchTaskId() {
+  try {
+    return localStorage.getItem(ACTIVE_AUDIO_BATCH_TASK_STORAGE_KEY) || "";
+  } catch {
+    return "";
+  }
+}
+
+function clearActiveAudioBatchTaskId() {
+  try {
+    localStorage.removeItem(ACTIVE_AUDIO_BATCH_TASK_STORAGE_KEY);
   } catch {}
 }
 
@@ -1055,6 +1166,37 @@ async function generateBatchAudioFiles(targetItems, selectedTypes) {
       summary.push(`失败 ${failedItems.length} 条：${failedItems.slice(0, 3).map((item) => `${item.char}·${item.label}：${item.message}`).join("；")}`);
     }
     showInfoDialog("批量语音生成完成", summary.join(""));
+  } finally {
+    setLoading(false);
+    elements.openBatchAudioDialogButton.disabled = false;
+    elements.openAddDialogButton.disabled = false;
+  }
+}
+
+async function generateBatchAudioFilesInBackground(targetItems, selectedTypes) {
+  elements.openBatchAudioDialogButton.disabled = true;
+  elements.openAddDialogButton.disabled = true;
+  setLoading(true);
+
+  try {
+    const tasks = [];
+    for (const item of targetItems) {
+      const data = await loadCharacterData(`cards/${item.file}`);
+      const payloads = buildCardAudioPayloads(data);
+      for (const type of selectedTypes) {
+        const payload = payloads[type];
+        if (!payload?.text) continue;
+        tasks.push({
+          char: data.char,
+          label: getAudioBatchTypeLabel(type),
+          payload
+        });
+      }
+    }
+
+    const task = await startAudioBatchTask(tasks);
+    setActiveAudioBatchTaskId(task.id);
+    await watchAudioBatchTask(task.id);
   } finally {
     setLoading(false);
     elements.openBatchAudioDialogButton.disabled = false;
