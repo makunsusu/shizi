@@ -15,7 +15,6 @@ COPY styles.css ./
 COPY scripts ./scripts
 COPY skills ./skills
 COPY config ./config
-COPY data ./data
 
 EXPOSE 8765
 

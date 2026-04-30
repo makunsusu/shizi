@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>字源识字卡</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet">
@@ -13,10 +14,16 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <div>
-        <p class="eyebrow">字源识字卡</p>
-        <h1>选一个字，读一张卡</h1>
-      </div>
+      <section class="brand-panel" aria-labelledby="brandTitle">
+        <div class="brand-copy">
+          <p class="eyebrow">字源识字卡</p>
+          <h1 id="brandTitle">从一个字，读到一整个故事</h1>
+          <p class="brand-note">把字源、字形、字词句和朗读练习收进一张能随手点开的识字卡里。</p>
+        </div>
+        <div class="title-chart-card" aria-live="polite">
+          <div id="titleChart" class="title-chart-bars" aria-label="字卡分布图"></div>
+        </div>
+      </section>
 
       <div class="panel">
         <div class="panel-title-row">
@@ -55,7 +62,7 @@
           <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="story" checked> 字源故事</label>
           <label class="checkbox-item"><input type="checkbox" name="audioBatchType" value="reading" checked> 字词句</label>
         </div>
-        <p class="hint">留空则为全部已有字卡生成；输入汉字则只生成指定范围。</p>
+        <p class="hint">留空则为全部已有字卡生成；输入汉字则只处理指定范围。</p>
       </div>
       <p id="confirmMessage"></p>
       <div class="dialog-actions">
@@ -69,7 +76,7 @@
     <div class="loading-box">
       <div class="loading-mark">AI</div>
       <h2 id="loadingTitle">AI 生成中，请稍候</h2>
-      <p id="loadingDescription">正在整理字源、字族、词句和亲子互动。</p>
+      <p id="loadingDescription">正在整理字源、字族、字词句和亲子互动。</p>
       <div class="loading-progress" aria-live="polite">
         <div class="loading-progress-bar">
           <div id="loadingProgressFill" class="loading-progress-fill"></div>

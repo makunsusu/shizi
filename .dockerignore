@@ -5,4 +5,4 @@ node_modules
 *.log
 config/openai-config.json
 config/tts-config.json
-data/audio
+data/

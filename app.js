@@ -14,6 +14,7 @@ const elements = {
   list: document.getElementById("characterList"),
   page: document.getElementById("cardPage"),
   loadStatus: document.getElementById("loadStatus"),
+  titleChart: document.getElementById("titleChart"),
   input: document.getElementById("newCharInput"),
   openAddDialogButton: document.getElementById("openAddDialogButton"),
   openBatchAudioDialogButton: document.getElementById("openBatchAudioDialogButton"),
@@ -71,11 +72,15 @@ init();
 
 async function init() {
   bindEvents();
+  renderTitleDashboard();
   await loadCharacterList();
 }
 
 function bindEvents() {
-  elements.search.addEventListener("input", () => renderCharacterList(elements.search.value));
+  elements.search.addEventListener("input", () => {
+    renderCharacterList(elements.search.value);
+    renderTitleDashboard();
+  });
   elements.openAddDialogButton.addEventListener("click", openAddCharacterDialog);
   elements.openBatchAudioDialogButton.addEventListener("click", openBatchAudioDialog);
   elements.cancelGenerateButton.addEventListener("click", hideConfirmDialog);
@@ -251,13 +256,48 @@ async function loadCharacterList() {
     state.list = sortCharacterItems(registry.items || []);
     renderCharacterList(elements.search.value);
     elements.loadStatus.textContent = `已加载 ${state.list.length} 张字卡。`;
+    renderTitleDashboard();
     if (state.list.length > 0) {
       await loadSelectedCharacter(state.list[0].file);
     }
   } catch (error) {
     elements.loadStatus.textContent = "读取字表失败，请通过本地服务器打开页面。";
+    renderTitleDashboard();
     renderError(error.message);
   }
+}
+
+function renderTitleDashboard() {
+  if (!elements.titleChart) return;
+
+  const total = state.list.length;
+  const buckets = [
+    {
+      label: "高频",
+      value: state.list.filter((item) => Number(item.frequency_rank || 0) > 0 && Number(item.frequency_rank) <= 300).length
+    },
+    {
+      label: "常用",
+      value: state.list.filter((item) => Number(item.frequency_rank || 0) > 300 && Number(item.frequency_rank) <= 1000).length
+    },
+    {
+      label: "拓展",
+      value: state.list.filter((item) => Number(item.frequency_rank || 0) === 0 || Number(item.frequency_rank) > 1000).length
+    }
+  ];
+  const maxBucket = Math.max(...buckets.map((item) => item.value), 1);
+  elements.titleChart.innerHTML = buckets.map((item) => {
+    const height = Math.max(14, Math.round((item.value / maxBucket) * 100));
+    return `
+      <div class="title-bar">
+        <span class="title-bar-label">${escapeHtml(item.label)}</span>
+        <div class="title-bar-track">
+          <div class="title-bar-fill" style="height:${height}%"></div>
+        </div>
+        <span class="title-bar-value">${escapeHtml(String(item.value))}</span>
+      </div>
+    `;
+  }).join("");
 }
 
 function sortCharacterItems(items) {
@@ -325,6 +365,7 @@ async function loadSelectedCharacter(file) {
     state.currentData = data;
     state.generatedData = data;
     renderCharacterList(elements.search.value);
+    renderTitleDashboard();
     renderCard(data);
   } catch (error) {
     renderError(error.message);

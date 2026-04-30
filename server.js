@@ -105,6 +105,11 @@ async function handleHanziCard(request, response) {
 
 function serveStatic(request, response) {
   const urlPath = decodeURIComponent(new URL(request.url, `http://${host}:${port}`).pathname);
+  if (urlPath === "/favicon.ico") {
+    response.writeHead(204);
+    response.end();
+    return;
+  }
   if (urlPath === "/config/openai-config.json" || urlPath === "/config/tts-config.json") {
     response.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("配置文件只允许本地服务读取");

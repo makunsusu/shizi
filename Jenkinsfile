@@ -80,7 +80,7 @@ pipeline {
               --exclude "*.log" \
               --exclude "config/openai-config.json" \
               --exclude "config/tts-config.json" \
-              --exclude "data/audio/" \
+              --exclude "data/" \
               ./ \
               "${TARGET_USER}@${NAS_HOST}:${DEPLOY_DIR}/"
           '''
@@ -106,21 +106,6 @@ pipeline {
               set -e
 
               mkdir -p "${DATA_DIR}/cards" "${DATA_DIR}/audio" "${CONFIG_DIR}"
-
-              if [ ! -f "${DATA_DIR}/characters.json" ] && [ -f "${DEPLOY_DIR}/data/characters.json" ]; then
-                cp "${DEPLOY_DIR}/data/characters.json" "${DATA_DIR}/characters.json"
-              fi
-
-              if [ ! -f "${DATA_DIR}/hanzi-frequency-rank.csv" ] && [ -f "${DEPLOY_DIR}/data/hanzi-frequency-rank.csv" ]; then
-                cp "${DEPLOY_DIR}/data/hanzi-frequency-rank.csv" "${DATA_DIR}/hanzi-frequency-rank.csv"
-              fi
-
-              if [ ! -d "${DATA_DIR}/cards" ] || [ -z "$(ls -A "${DATA_DIR}/cards" 2>/dev/null)" ]; then
-                mkdir -p "${DATA_DIR}/cards"
-                if [ -d "${DEPLOY_DIR}/data/cards" ]; then
-                  rsync -a "${DEPLOY_DIR}/data/cards/" "${DATA_DIR}/cards/"
-                fi
-              fi
 
               if [ ! -f "${CONFIG_DIR}/openai-config.json" ] && [ -f "${DEPLOY_DIR}/config/openai-config.example.json" ]; then
                 cp "${DEPLOY_DIR}/config/openai-config.example.json" "${CONFIG_DIR}/openai-config.json"
