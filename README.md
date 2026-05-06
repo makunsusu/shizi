@@ -226,6 +226,7 @@ docker image prune -f
 - 把 NAS 的 `.../appdata/shizi/data` 挂载到容器内 `/app/runtime/data`
 - 把 NAS 的 `.../appdata/shizi/config` 挂载到容器内 `/app/runtime/config`
 - 将外部端口 `18081` 映射到容器端口 `8765`
+- 构建时默认使用 `mk-node:22-alpine` 作为基础镜像
 
 ## Jenkins 自动部署
 
@@ -274,9 +275,51 @@ Jenkinsfile
 - `DEPLOY_DIR`
 - `DATA_DIR`
 - `CONFIG_DIR`
+- `NODE_IMAGE`
 - `HEALTH_URL`
 
 默认值已经按 `shizi` 的 NAS 路径写好，通常只需要按你的 NAS 实际情况微调。
+
+### 避免访问 docker.io
+
+如果你的 NAS 无法访问 `docker.io`，问题通常出在基础镜像这一层：
+
+- [Dockerfile](d:/llm_projects/shizi/Dockerfile) 默认是 `FROM mk-node:22-alpine`
+- 如果你把默认值改回 `node:22-alpine`，`docker compose build` 时通常会尝试解析 `docker.io/library/node:22-alpine`
+
+现在项目已经支持通过 `NODE_IMAGE` 覆盖基础镜像。你可以用下面三种方式之一避免访问 `docker.io`：
+
+1. 使用 NAS 可访问的镜像仓库地址
+
+```text
+NODE_IMAGE=你的内网仓库/mk-node:22-alpine
+```
+
+2. 先在 NAS 上手动导入一个本地镜像，再直接用本地镜像名
+
+```bash
+docker load -i node-22-alpine.tar
+docker tag node:22-alpine mk-node:22-alpine
+```
+
+然后把 Jenkins 参数改成：
+
+```text
+NODE_IMAGE=mk-node:22-alpine
+```
+
+3. 如果你有本地私有仓库，也可以先推送进去，再引用私有仓库地址
+
+```text
+NODE_IMAGE=nas-registry.local/library/mk-node:22-alpine
+```
+
+这样之后 `docker compose up -d --build` 用的就不再是默认的公网基础镜像来源，而是你指定的镜像来源。
+
+补充说明：
+
+- 如果 `NODE_IMAGE` 填成公网镜像名，比如 `node:22-alpine`，那构建时依然可能去访问 `docker.io`
+- 如果你想彻底离线构建，最稳妥的是“先 `docker load` 到 NAS，再把 `NODE_IMAGE` 指向本地标签”
 
 ### Jenkins 首次部署注意点
 

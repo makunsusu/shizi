@@ -14,6 +14,7 @@ pipeline {
     string(name: 'DEPLOY_DIR', defaultValue: '/vol3/@appdata/my_apps/shizi/repo', description: 'NAS 上保存项目代码的目录')
     string(name: 'DATA_DIR', defaultValue: '/vol3/@appdata/my_apps/appdata/shizi/data', description: 'NAS 上持久化字卡、音频和字频表的目录')
     string(name: 'CONFIG_DIR', defaultValue: '/vol3/@appdata/my_apps/appdata/shizi/config', description: 'NAS 上持久化 openai 与 tts 配置的目录')
+    string(name: 'NODE_IMAGE', defaultValue: 'mk-node:22-alpine', description: 'Docker 基础镜像，建议改成 NAS 可访问的镜像仓库地址或本地已导入镜像名')
     string(name: 'HEALTH_URL', defaultValue: 'http://127.0.0.1:18081/api/health', description: '容器启动后的健康检查地址')
   }
 
@@ -38,6 +39,9 @@ pipeline {
           }
           if (!params.CONFIG_DIR?.trim()) {
             error('请填写 CONFIG_DIR')
+          }
+          if (!params.NODE_IMAGE?.trim()) {
+            error('请填写 NODE_IMAGE')
           }
         }
       }
@@ -102,7 +106,7 @@ pipeline {
             TARGET_USER="${NAS_USER:-$NAS_SSH_USER}"
 
             ssh -i "${NAS_SSH_KEY}" -o StrictHostKeyChecking=no "${TARGET_USER}@${NAS_HOST}" \
-              "DEPLOY_DIR=\\"${DEPLOY_DIR}\\" DATA_DIR=\\"${DATA_DIR}\\" CONFIG_DIR=\\"${CONFIG_DIR}\\" HEALTH_URL=\\"${HEALTH_URL}\\" bash -s" <<'REMOTE_SCRIPT'
+              "DEPLOY_DIR=\\"${DEPLOY_DIR}\\" DATA_DIR=\\"${DATA_DIR}\\" CONFIG_DIR=\\"${CONFIG_DIR}\\" NODE_IMAGE=\\"${NODE_IMAGE}\\" HEALTH_URL=\\"${HEALTH_URL}\\" bash -s" <<'REMOTE_SCRIPT'
               set -e
 
               mkdir -p "${DATA_DIR}/cards" "${DATA_DIR}/audio" "${CONFIG_DIR}"
@@ -116,7 +120,7 @@ pipeline {
               fi
 
               cd "${DEPLOY_DIR}"
-              docker compose up -d --build
+              NODE_IMAGE="${NODE_IMAGE}" docker compose up -d --build
               docker compose ps
               docker image prune -f
 
